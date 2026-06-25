@@ -1,6 +1,7 @@
 #include <iostream>
 #include "auth.h"
 #include "models.h"
+#include "menu.h"
 
 
 int main() {
@@ -20,7 +21,8 @@ int main() {
 			break; //break means end this case and go back to the choice section
 		case 2:
 			if (login()) { //same here take result from auth.cpp and continue
-				std::cout << "Login sucessful! Welcome.\n";
+				std::cout << "Login sucessful! Redirecting to user menu\n";
+				showUserMenu();
 			}
 			else
 			{

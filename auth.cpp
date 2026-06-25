@@ -11,7 +11,7 @@ void registerUser(){
 
 	std::ofstream outFile("user.txt", std::ios::app); //ofstream is create nor edit the file, ios::app is to keep the previous thing that alr available inside the file so it wont get wipe out when running this row
 	outFile << newUser.username << " " << newUser.password << "\n";
-	std::cout << "Registered sucessfully!\n";
+	std::cout << "Registered sucessfully! Please log in now!\n";
 
 }
 
