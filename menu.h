@@ -1,7 +1,7 @@
 #ifndef MENU
 #define MENU
 
-void showUserMenu();
+void showUserMenu(User& currentUser);
 
 #endif
 

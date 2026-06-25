@@ -6,13 +6,19 @@
 
 int main() {
 	//a basic loop system to keep alive
+	User currentUser;
+	
 	int choice;
 	bool running = true; //set it to keep running until true become false
 
 	while (running) {
 		std::cout << "\n--- Welcome System --\n";
 		std::cout << "1. Register\n2. Login\n3. Exit\nPlease choose one option by typing the number\n";
-		std::cin >> choice;
+		
+		if (!(std::cin >> choice)) {
+			std::cin.clear();
+			std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
+		}
 
 		//switch here get result from the choice and entering it to case for different result
 		switch (choice) {
@@ -21,8 +27,8 @@ int main() {
 			break; //break means end this case and go back to the choice section
 		case 2:
 			if (login()) { //same here take result from auth.cpp and continue
-				std::cout << "Login sucessful! Redirecting to user menu\n";
-				showUserMenu();
+				std::cout << "Login successful! Redirecting to user menu\n";
+				showUserMenu(currentUser);
 			}
 			else
 			{
@@ -34,7 +40,8 @@ int main() {
 			std::cout << "Stoping the program. Bye!";
 			break;
 		default:
-			std::cout << "Invalid choice, please try again.\n";
+			std::cout << "Invalid input! Please enter a valid number,\n";
+			break;
 		}
 	}
 	return 0;

@@ -7,6 +7,11 @@
 struct User {
 	std::string username;
 	std::string password;
-	int userid = 0;
+	double credit = 100.0;//100 credit for every new user
+};
+
+struct Food{
+	std::string name;
+	double price;
 };
 #endif
