@@ -4,20 +4,22 @@
 
 
 int main() {
+	//a basic loop system to keep alive
 	int choice;
-	bool running = true;
+	bool running = true; //set it to keep running until true become false
 
 	while (running) {
 		std::cout << "\n--- Welcome System --\n";
 		std::cout << "1. Register\n2. Login\n3. Exit\nPlease choose one option by typing the number\n";
 		std::cin >> choice;
 
+		//switch here get result from the choice and entering it to case for different result
 		switch (choice) {
 		case 1:
-			registerUser();
-			break;
+			registerUser(); //take result from auth.cpp and continue
+			break; //break means end this case and go back to the choice section
 		case 2:
-			if (login()) {
+			if (login()) { //same here take result from auth.cpp and continue
 				std::cout << "Login sucessful! Welcome.\n";
 			}
 			else
@@ -26,7 +28,7 @@ int main() {
 			}
 			break;
 		case 3:
-			running = false;
+			running = false; //change the running status to false, so it wont continue run
 			std::cout << "Stoping the program. Bye!";
 			break;
 		default:
