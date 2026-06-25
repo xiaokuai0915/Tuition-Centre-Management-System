@@ -3,6 +3,7 @@
 #include <string>
 #include <iostream>
 
+//Register and save into txt file
 void registerUser(){
 	User newUser;
 	std::cout << "Create username: "; std::cin >> newUser.username;
@@ -14,6 +15,7 @@ void registerUser(){
 
 }
 
+//Check name and password from txt file and send result to main
 bool login() {
 	std::string inputU, inputP;
 	std::cout << "Username: "; std::cin >> inputU;
