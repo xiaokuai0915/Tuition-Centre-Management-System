@@ -57,9 +57,11 @@ bool login() {
 
 	std::ifstream inFile("user.txt"); //ifstream means read the file
 	std::string fileU, fileP;
+    int fileL;
+
 
 	//i believe u understand by just watching here, it is just if input username = username in txt file then send true as output, if no then false, password either
-	while (inFile >> fileU >> fileP) {
+	while (inFile >> fileU >> fileP >> fileL) {
 		if (fileU == inputU && fileP == inputP) return true;
 	}
 	return false;
