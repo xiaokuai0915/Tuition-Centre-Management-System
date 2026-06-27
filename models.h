@@ -7,10 +7,13 @@
 struct User {
 	std::string username;
 	std::string password;
+	int level = 0;
 	double credit = 100.0;//100 credit for every new user
+	int code = 0;
+	int adminCode = 123456; //code to register as a admin
 };
 
-struct Food{
+struct Food {
 	std::string name;
 	double price;
 };
