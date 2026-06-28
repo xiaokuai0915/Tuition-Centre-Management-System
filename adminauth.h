@@ -3,11 +3,11 @@
 #include <string>
 
 namespace AdminAuth {
-
+//Password to access admin account
 	const std::string AdminPassword = "Admin1234";
 	
 	inline bool authenticateAdmin() {
-
+//admin dashboard
 		system("cls");
 		std::cout << "==================\n";
 		std::cout << "Welcome, Admin.\n";
