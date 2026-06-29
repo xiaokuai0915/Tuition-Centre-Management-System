@@ -2,20 +2,21 @@
 #include "auth.h"
 #include "models.h"
 #include "menu.h"
+#include "storage.h"
 
 
 int main() {
 	//a basic loop system to keep alive
 	User currentUser;
-	
+
 	int choice;
 	bool running = true; //set it to keep running until true become false
 
 	while (running) {
 		std::cout << "\n--- Welcome System --\n";
 		std::cout << "1. Register\n2. Login\n3. Exit\nPlease choose one option by typing the number\n";
-		
-		if (!(std::cin >> choice)) {
+
+		if (!(std::cin >> choice)) {//input filter
 			std::cin.clear();
 			std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
 		}
@@ -26,9 +27,10 @@ int main() {
 			registerUser(); //take result from auth.cpp and continue
 			break; //break means end this case and go back to the choice section
 		case 2:
-			if (login()) { //same here take result from auth.cpp and continue
+			if (login(currentUser)) { //same here take result from auth.cpp and continue
 				std::cout << "Login successful! Redirecting to user menu\n";
-				showUserMenu(currentUser);
+				loadUserCourses(currentUser); //load user saved course
+				showUserMenu(currentUser); //load user menu
 			}
 			else
 			{

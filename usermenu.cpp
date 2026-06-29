@@ -4,58 +4,79 @@
 #include <iostream>
 #include "menu.h"
 #include "models.h"
+#include "storage.h"
 #include <vector>
 
-std::vector<Food> foodList = {
-	{"Burger", 10.5},
-	{"Pizza", 20.0},
-	{"Soda", 3.5}
-};
+	std::vector<Course> allCourse = { //create a course vector to store courses
+		{1,"Mathematics", 100.5},
+		{2,"Problem solving and programming", 200.0},
+		{3,"Science", 350.5}
+	};
 
-//set variable for menu,this whole stucture is quite simillar to the main menu,u can check my explaination there :D
-void showUserMenu(User& currentUser) {
-	int subChoice;
-	bool loggedIn = true;
+	
+	void showUserMenu(User& currentUser) { //recieve current user detail
+		int subChoice;
+		bool loggedIn = true; //loop control
 
-	while (loggedIn) {
-		std::cout << "\n--- User Menu (Balance: $" << currentUser.credit << ") --- \n";
-		std::cout << "1. View Food List\n2. Buy Food\n3. Logout\nPlease choose one option by typing the number\n";
-		
-		if (!(std::cin >> subChoice)) {
-			std::cin.clear();
-			std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
-			continue;
-		}
+		while (loggedIn) { 
+			std::cout << "\n--- User Menu --- \n";
+			std::cout << "1. View All Courses\n2. Add Course to Package\n3. Review my package\n4. Logout\nPlease choose one option by typing the number\n";
+
+			if (!(std::cin >> subChoice)) { //input filter, if not integer input will ignore and clear input
+				std::cin.clear();
+				std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
+				continue;
+			}
 
 		if (subChoice == 1) {
-			for (const auto& food : foodList) {
-				std::cout << food.name << " - $" << food.price << "\n";
+			for (const auto& c : allCourse) { /* c is temporary variable, autolet it auto detect the type of variable of c for allCourse that store in vector
+				                                 const to avoid is telling the compiler to read the file only(no edit to the file)    & direct pass by reference ( no need to copy anymore so faster)*/
+				std::cout << c.id << ". " << c.Name << " - $" << c.price << "\n"; //since all the variable type is auto sync so can direct output easily
 			}
 		}
 		else if (subChoice == 2) {
-			int foodIndex;
-			std::cout << " Enter food index (0-2): ";
-			std::cin >> foodIndex;
+			int id;
+			std::cout << " Enter Course ID to add ";
+			if (!(std::cin >> id)) {//input filter
+				std::cin.clear();
+				std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
+				continue;
+			}
 
-			if (foodIndex >= 0 && foodIndex < foodList.size()) {
-				if (currentUser.credit >= foodList[foodIndex].price) {
-					currentUser.credit -= foodList[foodIndex].price;
-					std::cout << "Purchased " << foodList[foodIndex].name << "!\n";
-				}
-				else {
-					std::cout << "Insufficient credit!\n";
+			bool found = false; //detect course found or not
+			for (const auto& c : allCourse) {
+				if (c.id == id) { //search for subject by check id one by one
+					currentUser.mypackage.push_back(c); //save(push back) to mypackage that in storage.cpp
+					std::cout << "Added " << c.Name << " to package!\n";
+					found = true;
+					break;
 				}
 			}
+
+			if (!found) std::cout << "Course ID not found!\n";
+
+				
 		}
 		else if (subChoice == 3) {
-			loggedIn = false;
+			std::cout << "\n--- My Package Summary ---\n";
+			double total = 0;
+			for (const auto& c : currentUser.mypackage) { //read all user course variable
+				std::cout << "- " << c.Name << " ($" << c.price << ")\n";
+				total += c.price;
+			}
+			std::cout << "Total Fee: $" << total << "\n";
+	    }
+	
+		else if (subChoice == 4) {
+			saveUserCourses(currentUser);
+			loggedIn = false;    //end the loop by changing the bool variable on the top of this page
 			std::cout << "Logged out successfully.\n";
+			break;
 		}
 		else {
 			std::cout << "Invalid option, try again.\n";
 		}
-		
-		
+
+
 	}
 }
-   
