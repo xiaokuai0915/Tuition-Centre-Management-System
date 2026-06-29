@@ -14,15 +14,18 @@ void registerUser() {
     std::cout << "Create password: "; std::cin >> newUser.password;
 
     do {
-        newUser.role = -1; //Since 0 and 1 is used to determine role, set default value to -1 to avoid defaulting back to 0
         std::cout << "Enter role (Teacher=0, Student=1): ";
         if (!(std::cin >> newUser.role)) { //filter input
+            std::cout << "Invalid input.\n";
             std::cin.clear();
             std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
             continue; //ignore the rest of the code and start loop again
         }
         if (newUser.role == 0 || newUser.role == 1) {
             break;
+        }
+        else {
+            std::cout << "Invalid input.\n";
         }
     } while (true); //code always run unless breaked
 
@@ -39,47 +42,15 @@ void registerUser() {
         else {
             std::cout << "Code invalid.\n";
         }
-
-        if (registration) {
-            do {
-                newUser.level = -1; //Since 0 and 1 is used to determine level, set default value to -1 to avoid defaulting back to 0
-                std::cout << "Enter level (Admin=0, User=1): ";
-                if (!(std::cin >> newUser.level)) { //filter input
-                    std::cin.clear();
-                    std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
-                    continue; //ignore the rest of the code and start loop again
-                }
-                if (newUser.level == 0 || newUser.level == 1) {
-                    break;
-                }
-            } while (true); //code always run unless breaked
-
-            if (newUser.level == 0) {
-                std::cout << "Enter Admin code: ";
-                if (!(std::cin >> newUser.codeA)) { //filter input
-                    std::cin.clear();
-                    std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
-                }
-
-                if (newUser.codeA == newUser.adminCode) { //detect admin code from models.h
-                    registration = true;
-                }
-                else {
-                    std::cout << "Code invalid.\n";
-                    registration = false;
-                }
-            }
-        }
     }
     else {
-        newUser.level = 1;
         registration = true;
     }
 
     if (registration) {
         //ofstream is create or edit the file, ios::app is to keep the previous thing that alr available inside the file so it wont get wipe out when running this row
         std::ofstream outFile("user.txt", std::ios::app);
-        outFile << newUser.username << " " << newUser.password << " " << newUser.role << " " << newUser.level << "\n"; // store username , password, level one by one
+        outFile << newUser.username << " " << newUser.password << " " << newUser.role << "\n"; // store username , password, role one by one
         outFile.close();//close the file to avoid error input into the file
         std::cout << "Registered successfully! Please log in now!\n";
     }
@@ -97,11 +68,10 @@ bool login(User& currentUser) {
     std::ifstream inFile("user.txt"); //ifstream means read the file
     std::string fileU, fileP;
     int fileR;
-    int fileL;
 
 
     //if input username = username in txt file then send true as output, if no then false, password also
-    while (inFile >> fileU >> fileP >> fileR >> fileL) {
+    while (inFile >> fileU >> fileP >> fileR) {
         std::cout << "[DEBUG] Comparing " << inputU << " with " << fileU << "\n"; //temporary for me to debug, i just leave it here until when we need to delete it :D
 
         if (fileU == inputU && fileP == inputP) {
