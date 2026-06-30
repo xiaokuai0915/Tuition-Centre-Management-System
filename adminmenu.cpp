@@ -5,7 +5,7 @@
 #include "menu.h"
 
 //Only can be access by admin
-void showadminmenu(User& currentadmin) {
+void showAdminMenu(User& currentAdmin) {
 
 	//loop
 	int subchoice;
