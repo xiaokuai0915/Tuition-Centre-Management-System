@@ -50,7 +50,6 @@ void showAdminMenu(User& currentUser) {
 		}
 
 	}
-	return; //can't use return 0 cuz using void, not int main
 }
 
 
