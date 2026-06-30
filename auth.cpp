@@ -66,7 +66,7 @@ bool login(User& currentUser) {
     currentUser.role = -1; //safe neutral state
 
     std::cin.clear();
-    std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
+    std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n'); //clear out the traiing newline left over from the main menu
 
     std::string inputU, inputP;
     std::cout << "Username: "; 
