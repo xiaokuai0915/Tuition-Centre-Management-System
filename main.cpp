@@ -28,18 +28,20 @@ int main() {
 			registerUser(); //take result from auth.cpp and continue
 			break; //break means end this case and go back to the choice section
 		case 2:
-			if (login(currentUser)) { //same here take result from auth.cpp and continue
-				std::cout << "Login successful! Redirecting to user menu\n";
-				loadUserCourses(currentUser); //load user saved course
-				showUserMenu(currentUser); //load user menu
+			if (login(currentUser)) {
+				std::cout << "Login successful!\n";
 			}
-			else if (login(currentAdmin)) { //if your are admin, it will take result from adminmenu.cpp
-				std::cout << "Login successful! Redirecting to admin menu\n";
-				showAdminMenu(currentAdmin); //load admin menu
+			if (currentUser.role == 0) {
+				std::cout << "Redirecting to admin menu...\n";
+				showAdminMenu(currentUser);
 			}
-			else
-			{
-				std::cout << "Login failed\n";
+			else if (currentUser.role == 1) {
+				std::cout << "Redirecting to user menu...\n";
+				showUserMenu(currentUser);
+				loadUserCourses(currentUser);
+			}
+			else {
+				std::cout << "Login failed! Please try again.\n";
 			}
 			break;
 		case 3:
