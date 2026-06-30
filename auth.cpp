@@ -76,9 +76,13 @@ bool login(User& currentUser) {
 
         if (fileU == inputU && fileP == inputP) {
             currentUser.username = inputU;
+            currentUser.password = inputP;
+            currentUser.role = fileR;
+            inFile.close();
             return true;
         }
 
     }
+    inFile.close();
     return false;
 }
