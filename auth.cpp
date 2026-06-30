@@ -61,14 +61,22 @@ void registerUser() {
 
 //Check name and password from txt file and send result to main
 bool login(User& currentUser) {
+    currentUser.username = "";
+    currentUser.password = "";
+    currentUser.role = -1; //safe neutral state
+
+    std::cin.clear();
+    std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
+
     std::string inputU, inputP;
-    std::cout << "Username: "; std::cin >> inputU;
-    std::cout << "Password: "; std::cin >> inputP;
+    std::cout << "Username: "; 
+    std::cin >> inputU;
+    std::cout << "Password: "; 
+    std::cin >> inputP;
 
     std::ifstream inFile("user.txt"); //ifstream means read the file
     std::string fileU, fileP;
     int fileR;
-
 
     //if input username = username in txt file then send true as output, if no then false, password also
     while (inFile >> fileU >> fileP >> fileR) {
