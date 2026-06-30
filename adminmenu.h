@@ -2,6 +2,6 @@
 #define ADMINMENU
 #include "models.h"
 
-void showAdminMenu (User& currentAdmin);
+void showAdminMenu (User& currentUser);
 
 #endif
