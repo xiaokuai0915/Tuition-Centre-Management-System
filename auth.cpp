@@ -96,6 +96,7 @@ bool login(User& currentUser) {
 
         if (fileU == inputU && fileP == inputP) {
             currentUser.username = inputU;
+			currentUser.role = fileR;
             return true;
         }
 
