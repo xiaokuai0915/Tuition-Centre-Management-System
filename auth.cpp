@@ -8,9 +8,29 @@
 //Register and save into txt file
 void registerUser() {
     User newUser;
+    bool checkname;
     bool registration = false;
 
-    std::cout << "Create username: "; std::cin >> newUser.username;
+
+    //check if username already exists
+    do {
+        checkname = false;
+        std::cout << "Create username: "; std::cin >> newUser.username;
+
+        std::ifstream inFile("user.txt"); //ifstream means read the file
+        std::string fileU, fileP;
+        int fileR;
+
+        while (inFile >> fileU >> fileP >> fileR) {
+            std::cout << "[DEBUG] Comparing " << newUser.username << " with " << fileU << "\n"; //same reason as login, for debugging purpose
+            if (newUser.username == fileU) {
+                std::cout << "Username already exist, please use another username.\n";
+                checkname = true;
+                break;
+            }
+        }
+    } while (checkname);
+
     std::cout << "Create password: "; std::cin >> newUser.password;
 
     do {

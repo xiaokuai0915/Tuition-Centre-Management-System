@@ -3,11 +3,12 @@
 #include "models.h"
 #include "menu.h"
 #include "storage.h"
-
+#include "adminmenu.h"
 
 int main() {
 	//a basic loop system to keep alive
-	User currentUser;
+	User currentUser; //for user
+	User currentAdmin; //for admin
 
 	int choice;
 	bool running = true; //set it to keep running until true become false
@@ -27,14 +28,20 @@ int main() {
 			registerUser(); //take result from auth.cpp and continue
 			break; //break means end this case and go back to the choice section
 		case 2:
-			if (login(currentUser)) { //same here take result from auth.cpp and continue
-				std::cout << "Login successful! Redirecting to user menu\n";
-				loadUserCourses(currentUser); //load user saved course
-				showUserMenu(currentUser); //load user menu
+			if (login(currentUser)) { //call login exactly once
+				std::cout << "Login successful!\n";
 			}
-			else
-			{
-				std::cout << "Login failed\n";
+			if (currentUser.role == 0) { //for admin role
+				std::cout << "Redirecting to admin menu...\n";
+				showAdminMenu(currentUser);
+			}
+			else if (currentUser.role == 1) { //for student role
+				std::cout << "Redirecting to user menu...\n";
+				showUserMenu(currentUser);
+				loadUserCourses(currentUser);
+			}
+			else {
+				std::cout << "Login failed! Please try again.\n";
 			}
 			break;
 		case 3:
