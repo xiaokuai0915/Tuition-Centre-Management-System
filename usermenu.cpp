@@ -20,7 +20,7 @@
 
 		while (loggedIn) { 
 			std::cout << "\n--- User Menu --- \n";
-			std::cout << "1. View All Courses\n2. Add Course to Package\n3. Review my package\n4. Logout\nPlease choose one option by typing the number\n";
+			std::cout << "1. View All Courses\n2. Add Course to Package\n3. Review my package\n4. Remove Course from Package\n5. Log out \nPlease choose one option by typing the number\n";
 
 			if (!(std::cin >> subChoice)) { //input filter, if not integer input will ignore and clear input
 				std::cin.clear();
@@ -36,6 +36,7 @@
 		}
 		else if (subChoice == 2) {
 			int id;
+			std::cout << "\n--- Add Course to Package ---\n";
 			std::cout << " Enter Course ID to add ";
 			if (!(std::cin >> id)) {//input filter
 				std::cin.clear();
@@ -47,6 +48,7 @@
 			for (const auto& c : allCourse) {
 				if (c.id == id) { //search for subject by check id one by one
 					currentUser.mypackage.push_back(c); //save(push back) to mypackage that in storage.cpp
+					std::cout << "\n------------------\n";
 					std::cout << "Added " << c.Name << " to package!\n";
 					found = true;
 					break;
@@ -68,11 +70,33 @@
 	    }
 	
 		else if (subChoice == 4) {
+			int id;
+			std::cout << "\n--- Remove Course from Package ---\n";
+			std::cout << "Enter Course ID to remove: ";
+			if (!(std::cin >> id)) {//input filter
+				std::cin.clear();
+				std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
+				continue;
+			}
+			bool found = false;
+			for (auto it = currentUser.mypackage.begin(); it != currentUser.mypackage.end(); ++it) {
+				if (it->id == id) {
+					std::cout << "Removed " << it->Name << " from package!\n";
+					currentUser.mypackage.erase(it); //remove the course from mypackage
+					found = true;
+					break;
+				}
+			}
+			
+		}
+		
+		else if (subChoice == 5) {
 			saveUserCourses(currentUser);
 			loggedIn = false;    //end the loop by changing the bool variable on the top of this page
 			std::cout << "Logged out successfully.\n";
 			break;
 		}
+		
 		else {
 			std::cout << "Invalid option, try again.\n";
 		}

@@ -1,8 +1,6 @@
 #include <iostream>
-#include "auth.h"
 #include "models.h"
 #include "adminmenu.h"
-#include "menu.h"
 
 //Only can be access by admin
 void showAdminMenu(User& currentUser) {
@@ -10,7 +8,7 @@ void showAdminMenu(User& currentUser) {
 	//loop
 	int subchoice;
 	bool loggedin = true;
-	
+
 	//Output that will be shown on screen after entering into the admin account
 	while (loggedin) {
 		std::cout << "==========\n";
@@ -43,7 +41,7 @@ void showAdminMenu(User& currentUser) {
 			loggedin = false;
 			std::cout << "Logging out......\n\n";
 			break;
-		//Using default to avoid user type in the wrong input
+			//Using default to avoid user type in the wrong input
 		default:
 			std::cout << "Invalid input! Please enter a valid number.\n\n";
 			break;
@@ -51,5 +49,4 @@ void showAdminMenu(User& currentUser) {
 
 	}
 }
-
 

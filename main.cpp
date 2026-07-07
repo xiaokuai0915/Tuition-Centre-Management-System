@@ -37,8 +37,8 @@ int main() {
 			}
 			else if (currentUser.role == 1) { //for student role
 				std::cout << "Redirecting to user menu...\n";
+				loadUserCourses(currentUser); //load user profile from storage.cpp
 				showUserMenu(currentUser);
-				loadUserCourses(currentUser);
 			}
 			else {
 				std::cout << "Login failed! Please try again.\n";
