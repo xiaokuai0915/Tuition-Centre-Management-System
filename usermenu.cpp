@@ -7,30 +7,30 @@
 #include "storage.h"
 #include <vector>
 
-	std::vector<Course> allCourse = { //create a course vector to store courses
+std::vector<Course> allCourse = { //create a course vector to store courses
 		{1,"Mathematics", 100.5},
 		{2,"Problem solving and programming", 200.0},
 		{3,"Science", 350.5}
-	};
+};
 
 	
-	void showUserMenu(User& currentUser) { //recieve current user detail
-		int subChoice;
-		bool loggedIn = true; //loop control
+void showUserMenu(User& currentUser) { //recieve current user detail
+	int subChoice;
+	bool loggedIn = true; //loop control
 
-		while (loggedIn) { 
-			std::cout << "\n--- User Menu --- \n";
-			std::cout << "1. View All Courses\n2. Add Course to Package\n3. Review my package\n4. Remove Course from Package\n5. Log out \nPlease choose one option by typing the number\n";
+	while (loggedIn) {
+		std::cout << "\n--- User Menu --- \n";
+		std::cout << "1. View All Courses\n2. Add Course to Package\n3. Review my package\n4. Remove Course from Package\n5. Log out \nPlease choose one option by typing the number\n";
 
-			if (!(std::cin >> subChoice)) { //input filter, if not integer input will ignore and clear input
-				std::cin.clear();
-				std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
-				continue;
-			}
+		if (!(std::cin >> subChoice)) { //input filter, if not integer input will ignore and clear input
+			std::cin.clear();
+			std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
+			continue;
+		}
 
 		if (subChoice == 1) {
 			for (const auto& c : allCourse) { /* c is temporary variable, autolet it auto detect the type of variable of c for allCourse that store in vector
-				                                 const to avoid is telling the compiler to read the file only(no edit to the file)    & direct pass by reference ( no need to copy anymore so faster)*/
+													 const to avoid is telling the compiler to read the file only(no edit to the file)    & direct pass by reference ( no need to copy anymore so faster)*/
 				std::cout << c.id << ". " << c.Name << " - $" << c.price << "\n"; //since all the variable type is auto sync so can direct output easily
 			}
 		}
@@ -41,23 +41,34 @@
 			if (!(std::cin >> id)) {//input filter
 				std::cin.clear();
 				std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
-				continue;
 			}
 
-			bool found = false; //detect course found or not
-			for (const auto& c : allCourse) {
-				if (c.id == id) { //search for subject by check id one by one
-					currentUser.mypackage.push_back(c); //save(push back) to mypackage that in storage.cpp
-					std::cout << "\n------------------\n";
-					std::cout << "Added " << c.Name << " to package!\n";
-					found = true;
+			bool alreadyExists = false;
+			for (const auto& c : currentUser.mypackage) {
+				if (c.id == id) {
+					alreadyExists = true;
 					break;
 				}
 			}
+			if (alreadyExists == true) {
+				std::cout << "Error: Course id(" << id << ") is already exists in your package";
+				continue;
+				bool found = false; //detect course found or not
+					for (const auto& c : allCourse) {
 
-			if (!found) std::cout << "Course ID not found!\n";
+						if (c.id == id) { //search for subject by check id one by one
+							currentUser.mypackage.push_back(c); //save(push back) to mypackage that in storage.cpp
+							std::cout << "\n------------------\n";
+							std::cout << "Added " << c.Name << " to package!\n";
+							found = true;
+							break;
+						}
+					}
 
-				
+			}
+			else {
+				std::cout << "Invalid option, try again.\n";
+			}
 		}
 		else if (subChoice == 3) {
 			std::cout << "\n--- My Package Summary ---\n";
@@ -67,11 +78,16 @@
 				total += c.price;
 			}
 			std::cout << "Total Fee: $" << total << "\n";
-	    }
 	
+		}
+
 		else if (subChoice == 4) {
 			int id;
 			std::cout << "\n--- Remove Course from Package ---\n";
+			for (const auto& c : currentUser.mypackage) { //read all user course variable
+				std::cout << "(ID=" << c.id << ") - " << c.Name << " ($" << c.price << ")\n";
+			}
+
 			std::cout << "Enter Course ID to remove: ";
 			if (!(std::cin >> id)) {//input filter
 				std::cin.clear();
@@ -86,21 +102,21 @@
 					found = true;
 					break;
 				}
+				else {
+					std::cout << "\nCourse (id= " << id << ") is not found in your package ";
+					break;
+				}
 			}
-			
+
 		}
-		
 		else if (subChoice == 5) {
 			saveUserCourses(currentUser);
 			loggedIn = false;    //end the loop by changing the bool variable on the top of this page
 			std::cout << "Logged out successfully.\n";
 			break;
 		}
-		
 		else {
 			std::cout << "Invalid option, try again.\n";
 		}
-
-
 	}
 }
