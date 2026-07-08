@@ -23,9 +23,20 @@ void showUserMenu(User& currentUser) { //recieve current user detail
 		std::cout << "1. View All Courses\n2. Add Course to Package\n3. Review my package\n4. Remove Course from Package\n5. Log out \nPlease choose one option by typing the number\n";
 
 		if (!(std::cin >> subChoice)) { //input filter, if not integer input will ignore and clear input
+			std::cout << "Invalid option, try again.\n";
 			std::cin.clear();
 			std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
 			continue;
+		}
+		else
+		{
+			char nextChar = std::cin.peek(); //peek to check the next character in the input buffer
+			if (nextChar != '\n' && nextChar != ' ' && nextChar != EOF) { //if the next character is not a newline, it means there are extra characters in the input buffer
+				std::cin.clear(); //clear the error state of cin
+				std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n'); //ignore the rest of the line
+				std::cout << "Invalid input , please try again!";
+				continue; //go back to the start of the loop
+			}
 		}
 
 		if (subChoice == 1) {
@@ -39,37 +50,34 @@ void showUserMenu(User& currentUser) { //recieve current user detail
 			std::cout << "\n--- Add Course to Package ---\n";
 			std::cout << " Enter Course ID to add ";
 			if (!(std::cin >> id)) {//input filter
+				std::cout << "Invalid option, try again.\n";
 				std::cin.clear();
 				std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
+				continue;
 			}
 
 			bool alreadyExists = false;
 			for (const auto& c : currentUser.mypackage) {
-				if (c.id == id) {
-					alreadyExists = true;
-					break;
-				}
+				if (c.id == id) {alreadyExists = true; break;}
 			}
-			if (alreadyExists == true) {
-				std::cout << "Error: Course id(" << id << ") is already exists in your package";
-				continue;
-				bool found = false; //detect course found or not
-					for (const auto& c : allCourse) {
-
-						if (c.id == id) { //search for subject by check id one by one
-							currentUser.mypackage.push_back(c); //save(push back) to mypackage that in storage.cpp
-							std::cout << "\n------------------\n";
-							std::cout << "Added " << c.Name << " to package!\n";
-							found = true;
-							break;
-						}
-					}
-
+			if (alreadyExists) {
+				std::cout << "Error: Course (ID =" << id << ") is already exists in your package\n";
 			}
 			else {
-				std::cout << "Invalid option, try again.\n";
+				bool found = false; //detect course found or not
+				for (const auto& c : allCourse) {
+
+					if (c.id == id) { //search for subject by check id one by one
+						currentUser.mypackage.push_back(c); //save(push back) to mypackage that in storage.cpp
+						std::cout << "\n------------------\n";
+						std::cout << "Added " << c.Name << " to package!\n";
+						found = true;
+						break;
+					}
+				}
 			}
-		}
+	    }
+	
 		else if (subChoice == 3) {
 			std::cout << "\n--- My Package Summary ---\n";
 			double total = 0;
@@ -92,7 +100,17 @@ void showUserMenu(User& currentUser) { //recieve current user detail
 			if (!(std::cin >> id)) {//input filter
 				std::cin.clear();
 				std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
+				std::cout << "Invalid input, please try again.\n";
 				continue;
+			}
+			else {
+				char nextChar = std::cin.peek(); //peek to check the next character in the input buffer
+				if (nextChar != '\n' && nextChar != ' ' && nextChar != EOF) { //if the next character is not a newline, it means there are extra characters in the input buffer
+					std::cin.clear(); //clear the error state of cin
+					std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n'); //ignore the rest of the line
+					std::cout << "Invalid input , please try again!";
+					continue; //go back to the start of the loop
+				}
 			}
 			bool found = false;
 			for (auto it = currentUser.mypackage.begin(); it != currentUser.mypackage.end(); ++it) {
@@ -102,11 +120,10 @@ void showUserMenu(User& currentUser) { //recieve current user detail
 					found = true;
 					break;
 				}
-				else {
+				if (!found) {
 					std::cout << "\nCourse (id= " << id << ") is not found in your package ";
-					break;
 				}
-			}
+			}  
 
 		}
 		else if (subChoice == 5) {
