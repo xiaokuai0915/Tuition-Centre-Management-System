@@ -5,6 +5,7 @@
 #include "menu.h"
 #include "models.h"
 #include "storage.h"
+#include "tools.h"
 #include <vector>
 
 std::vector<Course> allCourse = { //create a course vector to store courses
@@ -21,23 +22,7 @@ void showUserMenu(User& currentUser) { //recieve current user detail
 	while (loggedIn) {
 		std::cout << "\n--- User Menu --- \n";
 		std::cout << "1. View All Courses\n2. Add Course to Package\n3. Review my package\n4. Remove Course from Package\n5. Log out \nPlease choose one option by typing the number\n";
-
-		if (!(std::cin >> subChoice)) { //input filter, if not integer input will ignore and clear input
-			std::cout << "Invalid option, try again.\n";
-			std::cin.clear();
-			std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
-			continue;
-		}
-		else
-		{
-			char nextChar = std::cin.peek(); //peek to check the next character in the input buffer
-			if (nextChar != '\n' && nextChar != ' ' && nextChar != EOF) { //if the next character is not a newline, it means there are extra characters in the input buffer
-				std::cin.clear(); //clear the error state of cin
-				std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n'); //ignore the rest of the line
-				std::cout << "Invalid input , please try again!";
-				continue; //go back to the start of the loop
-			}
-		}
+		subChoice = intgerinputfilter("Enter your choice: "); //call the input filter function to get the input and check if it is valid	
 
 		if (subChoice == 1) {
 			for (const auto& c : allCourse) { /* c is temporary variable, autolet it auto detect the type of variable of c for allCourse that store in vector

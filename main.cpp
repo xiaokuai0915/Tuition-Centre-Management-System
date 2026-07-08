@@ -4,6 +4,7 @@
 #include "menu.h"
 #include "storage.h"
 #include "adminmenu.h"
+#include "tools.h"
 
 int main() {
 	//a basic loop system to keep alive
@@ -16,21 +17,7 @@ int main() {
 	while (running) {
 		std::cout << "\n--- Welcome System --\n";
 		std::cout << "1. Register\n2. Login\n3. Exit\nPlease choose one option by typing the number\n";
-		if (!(std::cin >> choice)) {//input filter
-			std::cin.clear();
-			std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
-			std::cout << "Invalid input , please try again!";
-			continue; //continue means go back to the start of the loop
-		}
-		else{
-			char nextChar = std::cin.peek(); //peek to check the next character in the input buffer
-			if (nextChar != '\n' && nextChar !=' ' && nextChar !=EOF) { //if the next character is not a newline, it means there are extra characters in the input buffer
-				std::cin.clear(); //clear the error state of cin
-				std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n'); //ignore the rest of the line
-				std::cout << "Invalid input , please try again!";
-				continue; //go back to the start of the loop
-			}
-		}
+		choice = intgerinputfilter("Enter your choice: "); //call the input filter function to get the input and check if it is valid
 
 		//switch here get result from the choice and entering it to case for different result
 		switch (choice) {
