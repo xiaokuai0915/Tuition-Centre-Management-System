@@ -28,18 +28,19 @@ int main() {
 			registerUser(); //take result from auth.cpp and continue
 			break; //break means end this case and go back to the choice section
 		case 2:
-			if (login(currentUser)) { //call login exactly once
-				std::cout << "Login successful!\n";
-			}
-			if (currentUser.role == 0) { //for admin role
-				std::cout << "Redirecting to admin menu...\n";
-				showAdminMenu(currentUser);
-			}
-			else if (currentUser.role == 1) { //for student role
-				std::cout << "Redirecting to user menu...\n";
-				loadUserCourses(currentUser); //load user profile from storage.cpp
-				showUserMenu(currentUser);
-			}
+	        if (login(currentUser)) { //call login exactly once
+	            std::cout << "Login successful!\n";
+
+	            if (currentUser.role == 1) { //for admin role
+		            std::cout << "Redirecting to admin menu...\n";
+		            showAdminMenu(currentUser);
+	            }
+	            else if (currentUser.role == 0) { //for student role
+		            std::cout << "Redirecting to user menu...\n";
+		            loadUserCourses(currentUser); //load user profile from storage.cpp
+		            showUserMenu(currentUser);
+	            }
+            }	
 			else {
 				std::cout << "Login failed! Please try again.\n";
 			}
