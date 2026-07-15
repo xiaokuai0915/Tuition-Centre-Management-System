@@ -57,6 +57,8 @@ void showUserMenu(User& currentUser) { //recieve current user detail
 						std::cout << "\n------------------\n";
 						std::cout << "Added " << c.Name << " to package!\n";
 						found = true;
+						saveUserCourses(currentUser); //save immediatelly to avoid course not save when program is close during half way
+                        std::cout << "[DEBUG} saved the data into the text file.";
 						break;
 					}
 				}
@@ -112,7 +114,7 @@ void showUserMenu(User& currentUser) { //recieve current user detail
 
 		}
 		else if (subChoice == 5) {
-			saveUserCourses(currentUser);
+			saveUserCourses(currentUser); //back up saving, save one more time to avoid accident
 			loggedIn = false;    //end the loop by changing the bool variable on the top of this page
 			std::cout << "Logged out successfully.\n";
 			break;
