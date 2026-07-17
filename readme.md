@@ -1,13 +1,14 @@
 # 1.0 Introduction of the program
 
 ## Project Overview
-This project focuses on the development of an integrated management system designed specifically for the tuition centre environment. The platform serves as a digital bridge between centre management (teachers) and students, centralizing operational workflows into a single, cohesive interface. By transitioning from traditional, manual management methods to a digital solution, the project aims to establish a more structured and efficient educational ecosystem.
+This project involves the development of a dedicated Tuition Centre Management System designed to digitize and centralize core administrative and student-facing operations. By moving away from manual record-keeping, this system provides a unified platform where management (teachers) can oversee administrative duties, while students gain direct control over their registration and academic scheduling.
 
 ## Purpose of the System
-### The primary purpose of developing this system is to resolve administrative inefficiencies and improve the overall user experience within the tuition centre. Specifically, the system is designed to:
+### The purpose of this system is to enhance operational efficiency and transparency for both teachers and students by automating routine tasks. Specifically, the system aims to:
+* Streamline Administrative Management: Enable teachers to efficiently manage the centre's data, including the creation of student accounts and the addition of new courses.
 
-* Empower Educators: Provide teachers with automated tools to track attendance, manage student records, and organize schedules, allowing them to dedicate more time to instruction.
+* Optimize Academic Scheduling: Provide teachers with the tools to assign timetables, ensuring a structured learning environment, while allowing students to easily view their personalized schedules.
 
-* Enhance Student Engagement: Offer students a centralized portal to monitor their own academic progress, view schedules, and interact with the centre’s resources with greater transparency.
+* Enhance Student Autonomy: Facilitate a seamless registration process for students, allowing them to manage their course packages and add new courses directly into their current study plans.
 
-* Standardize Operations: Ensure that both teachers and students follow consistent, streamlined procedures, minimizing errors and fostering a more professional environment for learning.### 
+* Improve Data Tracking and Reporting: Empower teachers to generate comprehensive reports on courses taken, ensuring accurate oversight of student progress and centre operations.
