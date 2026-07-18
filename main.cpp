@@ -3,7 +3,7 @@
 #include "models.h"
 #include "menu.h"
 #include "storage.h"
-#include "adminmenu.h"
+#include "tools.h"
 
 int main() {
 	//a basic loop system to keep alive
@@ -16,11 +16,7 @@ int main() {
 	while (running) {
 		std::cout << "\n--- Welcome System --\n";
 		std::cout << "1. Register\n2. Login\n3. Exit\nPlease choose one option by typing the number\n";
-
-		if (!(std::cin >> choice)) {//input filter
-			std::cin.clear();
-			std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
-		}
+		choice = intgerinputfilter("Enter your choice: "); //call the input filter function to get the input and check if it is valid
 
 		//switch here get result from the choice and entering it to case for different result
 		switch (choice) {
@@ -28,17 +24,18 @@ int main() {
 			registerUser(); //take result from auth.cpp and continue
 			break; //break means end this case and go back to the choice section
 		case 2:
-			if (login(currentUser)) { //call login exactly once
+			if (login(currentUser)) { //call login
 				std::cout << "Login successful!\n";
-			}
-			if (currentUser.role == 0) { //for admin role
-				std::cout << "Redirecting to admin menu...\n";
-				showAdminMenu(currentUser);
-			}
-			else if (currentUser.role == 1) { //for student role
-				std::cout << "Redirecting to user menu...\n";
-				loadUserCourses(currentUser); //load user profile from storage.cpp
-				showUserMenu(currentUser);
+
+				if (currentUser.role == 1) { //for admin role
+					std::cout << "Redirecting to admin menu...\n";
+					showAdminMenu(currentUser);
+				}
+				else if (currentUser.role == 0) { //for student role
+					std::cout << "Redirecting to user menu...\n";
+					loadUserCourses(currentUser); //load user profile from storage.cpp
+					showUserMenu(currentUser);
+				}
 			}
 			else {
 				std::cout << "Login failed! Please try again.\n";

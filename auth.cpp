@@ -34,7 +34,7 @@ void registerUser() {
     std::cout << "Create password: "; std::cin >> newUser.password;
 
     do {
-        std::cout << "Enter role (Teacher=0, Student=1): ";
+        std::cout << "Enter role (Teacher=1, Student=0): ";
         if (!(std::cin >> newUser.role)) { //filter input
             std::cout << "Invalid input.\n";
             std::cin.clear();
@@ -49,7 +49,7 @@ void registerUser() {
         }
     } while (true); //code always run unless breaked
 
-    if (newUser.role == 0) {
+    if (newUser.role == 1) {
         std::cout << "Enter Teacher code: ";
         if (!(std::cin >> newUser.codeT)) { //filter input
             std::cin.clear();
@@ -96,7 +96,7 @@ bool login(User& currentUser) {
 
         if (fileU == inputU && fileP == inputP) {
             currentUser.username = inputU;
-			currentUser.role = fileR;
+            currentUser.role = fileR;
             return true;
         }
 

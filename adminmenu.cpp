@@ -1,6 +1,6 @@
 #include <iostream>
 #include "models.h"
-#include "adminmenu.h"
+#include "menu.h"
 
 //Only can be access by admin
 void showAdminMenu(User& currentUser) {
@@ -49,4 +49,3 @@ void showAdminMenu(User& currentUser) {
 
 	}
 }
-
