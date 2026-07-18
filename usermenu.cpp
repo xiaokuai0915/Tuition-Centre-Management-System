@@ -36,6 +36,10 @@ void showUserMenu(User& currentUser) { //recieve current user detail
 			std::cout << "\n--- Add Course to Package ---\n";
 			std::cout << " Enter Course ID to add ";
 			int id = intgerinputfilter("Enter Course ID to add: ");
+			if (id == -1) {
+				std::cout << "Invalid input. Please try again!";
+				continue;
+			}
 
 			bool alreadyExists = false;
 			for (const auto& c : currentUser.mypackage) {
@@ -82,6 +86,10 @@ void showUserMenu(User& currentUser) { //recieve current user detail
 				std::cout << "(ID=" << c.id << ") - " << c.Name << " ($" << c.price << ")\n";
 			}
 			int id = intgerinputfilter("Enter Course ID to remove: ");
+			if (id == -1) {
+				std::cout << "Invalid input. Please try again!";
+				continue;
+			}
 
 			bool found = false;
 			for (auto it = currentUser.mypackage.begin(); it != currentUser.mypackage.end(); ++it) {
