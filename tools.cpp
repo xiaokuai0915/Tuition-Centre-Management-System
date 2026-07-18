@@ -12,6 +12,6 @@ int intgerinputfilter(const std::string& prompt){
 		 }
 		 std::cin.clear(); // clear the error state of cin
 		 std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n'); // ignore the rest of the line 
-		 return 0; //this doesnt mean it is no error, i just want it to sync as the normal input error if user type only integer but wrong
+		 return -1; //this doesnt mean it is no error, i just want it to sync as the normal input error if user type only integer but wrong
 	 }
  }
