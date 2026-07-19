@@ -1,16 +1,14 @@
 #include <iostream>
-#include <vector>
 #include "auth.h"
 #include "models.h"
 #include "menu.h"
 #include "storage.h"
-#include "adminmenu.h"
 #include "tools.h"
 
 int main() {
 	//a basic loop system to keep alive
-	std::vector<User> studentList;
 	User currentUser; //for user
+	
 
 	int choice;
 	bool running = true; //set it to keep running until true become false
@@ -31,7 +29,7 @@ int main() {
 
 				if (currentUser.role == 1) { //for admin role
 					std::cout << "Redirecting to admin menu...\n";
-					showAdminMenu(currentUser,studentList);
+					showAdminMenu(currentUser); 
 				}
 				else if (currentUser.role == 0) { //for student role
 					std::cout << "Redirecting to user menu...\n";
