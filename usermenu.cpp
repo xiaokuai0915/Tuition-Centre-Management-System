@@ -34,35 +34,7 @@ void showUserMenu(User& currentUser) { //recieve current user detail
 		}
 		else if (subChoice == 2) {
 			std::cout << "\n--- Add Course to Package ---\n";
-			std::cout << " Enter Course ID to add ";
-			int id = intgerinputfilter("Enter Course ID to add: ");
-			if (id == -1) {
-				std::cout << "Invalid input. Please try again!";
-				continue;
-			}
-
-			bool alreadyExists = false;
-			for (const auto& c : currentUser.mypackage) {
-				if (c.id == id) { alreadyExists = true; break; }
-			}
-			if (alreadyExists) {
-				std::cout << "Error: Course (ID =" << id << ") is already exists in your package\n";
-			}
-			else {
-				bool found = false; //detect course found or not
-				for (const auto& c : allCourse) {
-
-					if (c.id == id) { //search for subject by check id one by one
-						currentUser.mypackage.push_back(c); //save(push back) to mypackage that in storage.cpp
-						std::cout << "\n------------------\n";
-						std::cout << "Added " << c.Name << " to package!\n";
-						found = true;
-						saveUserCourses(currentUser); //save immediatelly to avoid course not save when program is close during half way
-						std::cout << "[DEBUG} saved the data into the text file.\n";
-						break;
-					}
-				}
-			}
+			addCoursetoPackage(currentUser, allCourse); //call the function in userpackage.cpp
 		}
 
 		else if (subChoice == 3) {
