@@ -38,44 +38,11 @@ void showUserMenu(User& currentUser) { //recieve current user detail
 		}
 
 		else if (subChoice == 3) {
-			std::cout << "\n--- My Package Summary ---\n";
-			double total = 0;
-			for (const auto& c : currentUser.mypackage) { //read all user course variable
-				std::cout << "- " << c.Name << " ($" << c.price << ")\n";
-				total += c.price;
-			}
-			std::cout << "Total Fee: $" << total << "\n";
-
+			myCourseSummary(currentUser, allCourse); //call the function in userpackage.cpp
 		}
 
 		else if (subChoice == 4) {
-			if (currentUser.mypackage.empty()) {
-				std::cout << "Your package is currently empty.\n";
-				continue;
-			}
-			std::cout << "\n--- Remove Course from Package ---\n";
-			for (const auto& c : currentUser.mypackage) { //read all user course variable
-				std::cout << "(ID=" << c.id << ") - " << c.Name << " ($" << c.price << ")\n";
-			}
-			int id = intgerinputfilter("Enter Course ID to remove: ");
-			if (id == -1) {
-				std::cout << "Invalid input. Please try again!";
-				continue;
-			}
-
-			bool found = false;
-			for (auto it = currentUser.mypackage.begin(); it != currentUser.mypackage.end(); ++it) {
-				if (it->id == id) {
-					std::cout << "\nRemoved " << it->Name << " from package!\n";
-					currentUser.mypackage.erase(it); //remove the course from mypackage
-					found = true;
-					break;
-				}
-			}
-			if (!found) {
-				std::cout << "\nCourse ID entered is not found in your package ";
-				continue;
-			}
+			removeCoursefromPackage(currentUser, allCourse); //call the function in userpackage.cpp
 		}
 
 		else if (subChoice == 5) {

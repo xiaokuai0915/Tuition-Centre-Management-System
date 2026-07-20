@@ -4,6 +4,7 @@
 #include "models.h"
 #include "auth.h"
 #include "menu.h"
+#include "storage.h"
 
 void saveUserCourses(const User& currentUser) { //load current user profile
 	std::vector<std::string> otherUserData;  //using vector to temporary save other user profile（and skip the current user one first)
