@@ -1,10 +1,15 @@
 #include <iostream>
+#include <iomanip>
+#include <vector>
 #include "models.h"
 #include "menu.h"
+#include "reports.h"
+#include "tools.h"
+
 
 //Only can be access by admin
 void showAdminMenu(User& currentUser) {
-
+	std::vector<User> studentList;
 	//loop
 	int subchoice;
 	bool loggedin = true;
@@ -14,30 +19,32 @@ void showAdminMenu(User& currentUser) {
 		std::cout << "==========\n";
 		std::cout << "Admin Menu\n";
 		std::cout << "==========\n";
-		std::cout << "Welcome, Admin.\n";
-		std::cout << "Choose one option by typing number:\n1. Most Course Taken\n2. Student Enrollment\n3. Total amount of students\n4. Total amount of teachers\n5. Exit\n";
+		std::cout << "Welcome, Admin.\n\n";
 
-		//input filter
-		if (!(std::cin >> subchoice)) {
-			std::cin.clear();
-			std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
-		}
+		std::cout << "Choose one option by typing number:\n1. User Module\n2. Subject Module\n3. Schedule Module\n4. Booking Module\n5. Reporting Module\n6. Back to Main Menu\n";
+		std::cout << std::setfill('=') << std::setw(50) << '\n';
+
+		subchoice = intgerinputfilter("Enter your choice(1-6)= ");
+
 
 		//using switch instead of if else
 		switch (subchoice) {
 		case 1:
-			std::cout << "The most course taken is: \n\n";
+			//mannage user module
 			break;
 		case 2:
-			std::cout << "=====================\nStudent Enrollemnt\n=====================\n\n";
-			break;
+			//subject module
 		case 3:
-			std::cout << "The total amount of students is: \n\n";
+			//schedule module
 			break;
 		case 4:
-			std::cout << "The total amount of teachers is: \n\n";
+			//booking module
 			break;
 		case 5:
+			std::cout << "\n[!] Opening Reporting Module dashboard......\n";//load the report module
+			showReportModule(studentList);
+			break;
+		case 6:
 			loggedin = false;
 			std::cout << "Logging out......\n\n";
 			break;

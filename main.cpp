@@ -8,7 +8,7 @@
 int main() {
 	//a basic loop system to keep alive
 	User currentUser; //for user
-	User currentAdmin; //for admin
+	
 
 	int choice;
 	bool running = true; //set it to keep running until true become false
@@ -33,14 +33,14 @@ int main() {
 			break; //break means end this case and go back to the choice section
 		case 2:
 			if (login(currentUser)) { //call login
-				std::cout << "\nLogin successful!\n";
+				std::cout << "Login successful!\n";
 
 				if (currentUser.role == 1) { //for admin role
-					std::cout << "\nRedirecting to admin menu...\n";
-					showAdminMenu(currentUser);
+					std::cout << "Redirecting to admin menu...\n";
+					showAdminMenu(currentUser); 
 				}
 				else if (currentUser.role == 0) { //for student role
-					std::cout << "\nRedirecting to user menu...\n";
+					std::cout << "Redirecting to user menu...\n";
 					loadUserCourses(currentUser); //load user profile from storage.cpp
 					showUserMenu(currentUser);
 				}
