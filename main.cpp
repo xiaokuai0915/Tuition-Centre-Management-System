@@ -15,8 +15,16 @@ int main() {
 
 	while (running) {
 		std::cout << "\n--- Welcome System --\n";
-		std::cout << "1. Register\n2. Login\n3. Exit\nPlease choose one option by typing the number\n";
-		choice = intgerinputfilter("Enter your choice: "); //call the input filter function to get the input and check if it is valid
+		std::cout << "1. Register\n2. Login\n0. Exit\nPlease choose one option by typing the number\n";
+		choice = intgerinputfilter("Enter your choice: ");//call the input filter function to get the input and check if it is valid
+		if (choice == -1) {
+			std::cout << "Invalid input! Please enter a valid number\n";
+			continue;
+		}
+		if (choice == -2) {
+			std::cout << "Input cannot be empty! Please enter a valid number\n";
+			continue;
+		}
 
 		//switch here get result from the choice and entering it to case for different result
 		switch (choice) {
@@ -38,12 +46,12 @@ int main() {
 				}
 			}
 			else {
-				std::cout << "Login failed! Please try again.\n";
+				std::cout << "\nLogin failed! Please try again.\n";
 			}
 			break;
-		case 3:
+		case 0:
 			running = false; //change the running status to false, so it wont continue run
-			std::cout << "Stoping the program. Bye!";
+			std::cout << "\nStoping the program. Bye!";
 			break;
 		default:
 			std::cout << "Invalid input! Please enter a valid number,\n";

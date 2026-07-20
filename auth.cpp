@@ -1,9 +1,11 @@
 #include <fstream>
+#include "tools.h"
 #include "auth.h"
 #include "models.h"
 #include <string>
 #include <iostream>
 #include <limits>
+
 
 //Register and save into txt file
 void registerUser() {
@@ -15,7 +17,12 @@ void registerUser() {
     //check if username already exists
     do {
         checkname = false;
-        std::cout << "Create username: "; std::cin >> newUser.username;
+		newUser.username = stringinputfilter("Create username: "); //call the input filter function to get the input and check if it is valid
+
+		if (newUser.username == "0") {
+			std::cout << "Registration cancelled.\n";
+			return;
+		}
 
         std::ifstream inFile("user.txt"); //ifstream means read the file
         std::string fileU, fileP;
@@ -31,16 +38,21 @@ void registerUser() {
         }
     } while (checkname);
 
-    std::cout << "Create password: "; std::cin >> newUser.password;
+	newUser.password = stringinputfilter("Create password: "); //call the input filter function to get the input and check if it is valid
 
     do {
-        std::cout << "Enter role (Teacher=0, Student=1): ";
-        if (!(std::cin >> newUser.role)) { //filter input
-            std::cout << "Invalid input.\n";
-            std::cin.clear();
-            std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
-            continue; //ignore the rest of the code and start loop again
-        }
+		newUser.role = intgerinputfilter("Enter role (0 for Student, 1 for Teacher): "); //call the input filter function to get the input and check if it is valid
+        
+		if (newUser.role == -1) {
+			std::cout << "Invalid input. Please try again.\n";
+			continue;
+		}
+
+		if (newUser.role == -2) {
+			std::cout << "Input cannot be empty. Please enter a valid number.\n";
+			continue;
+		}
+
         if (newUser.role == 0 || newUser.role == 1) {
             break;
         }
@@ -49,12 +61,18 @@ void registerUser() {
         }
     } while (true); //code always run unless breaked
 
-    if (newUser.role == 0) {
-        std::cout << "Enter Teacher code: ";
-        if (!(std::cin >> newUser.codeT)) { //filter input
-            std::cin.clear();
-            std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
-        }
+    if (newUser.role == 1) {
+        newUser.codeT = intgerinputfilter("Enter Teacher code: "); //call the input filter function to get the input and check if it is valid
+
+		if (newUser.codeT == -1) {
+			std::cout << "Invalid input. Please try again.\n";
+			return;
+		}
+
+		if (newUser.codeT == -2) {
+			std::cout << "Input cannot be empty. Please enter a valid number.\n";
+			return;
+		}
 
         if (newUser.codeT == newUser.teacherCode) { //detect teacher code from models.h
             registration = true;
@@ -82,8 +100,14 @@ void registerUser() {
 //Check name and password from txt file and send result to main
 bool login(User& currentUser) {
     std::string inputU, inputP;
-    std::cout << "Username: "; std::cin >> inputU;
-    std::cout << "Password: "; std::cin >> inputP;
+    inputU = stringinputfilter("Username: ");
+    
+	if (inputU == "0") {
+		std::cout << "Login cancelled.\n";
+		return false;
+	}
+
+    inputP = stringinputfilter("Password: ");
 
     std::ifstream inFile("user.txt"); //ifstream means read the file
     std::string fileU, fileP;
@@ -96,6 +120,7 @@ bool login(User& currentUser) {
 
         if (fileU == inputU && fileP == inputP) {
             currentUser.username = inputU;
+            currentUser.role = fileR;
             return true;
         }
 
