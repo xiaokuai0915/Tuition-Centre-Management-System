@@ -3,10 +3,11 @@
 #include <vector>
 #include "models.h"
 #include "menu.h"
+#include "reports.h"
 #include "tools.h"
 
+
 //Only can be access by admin
-void showReportModule(const std::vector<User>& studentList);
 void showAdminMenu(User& currentUser) {
 	std::vector<User> studentList;
 	//loop
@@ -19,13 +20,13 @@ void showAdminMenu(User& currentUser) {
 		std::cout << "Admin Menu\n";
 		std::cout << "==========\n";
 		std::cout << "Welcome, Admin.\n\n";
-	
+
 		std::cout << "Choose one option by typing number:\n1. User Module\n2. Subject Module\n3. Schedule Module\n4. Booking Module\n5. Reporting Module\n6. Back to Main Menu\n";
 		std::cout << std::setfill('=') << std::setw(50) << '\n';
 
-		subchoice = intgerinputfilter("Enter your choice(1-6)= "); 
-		
-	
+		subchoice = intgerinputfilter("Enter your choice(1-6)= ");
+
+
 		//using switch instead of if else
 		switch (subchoice) {
 		case 1:
