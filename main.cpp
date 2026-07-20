@@ -15,8 +15,16 @@ int main() {
 
 	while (running) {
 		std::cout << "\n--- Welcome System --\n";
-		std::cout << "1. Register\n2. Login\n3. Exit\nPlease choose one option by typing the number\n";
-		choice = intgerinputfilter("Enter your choice: "); //call the input filter function to get the input and check if it is valid
+		std::cout << "1. Register\n2. Login\n0. Exit\nPlease choose one option by typing the number\n";
+		choice = intgerinputfilter("Enter your choice: ");//call the input filter function to get the input and check if it is valid
+		if (choice == -1) {
+			std::cout << "Invalid input! Please enter a valid number\n";
+			continue;
+		}
+		if (choice == -2) {
+			std::cout << "Input cannot be empty! Please enter a valid number\n";
+			continue;
+		}
 
 		//switch here get result from the choice and entering it to case for different result
 		switch (choice) {
@@ -25,25 +33,25 @@ int main() {
 			break; //break means end this case and go back to the choice section
 		case 2:
 			if (login(currentUser)) { //call login
-				std::cout << "Login successful!\n";
+				std::cout << "\nLogin successful!\n";
 
 				if (currentUser.role == 1) { //for admin role
-					std::cout << "Redirecting to admin menu...\n";
+					std::cout << "\nRedirecting to admin menu...\n";
 					showAdminMenu(currentUser);
 				}
 				else if (currentUser.role == 0) { //for student role
-					std::cout << "Redirecting to user menu...\n";
+					std::cout << "\nRedirecting to user menu...\n";
 					loadUserCourses(currentUser); //load user profile from storage.cpp
 					showUserMenu(currentUser);
 				}
 			}
 			else {
-				std::cout << "Login failed! Please try again.\n";
+				std::cout << "\nLogin failed! Please try again.\n";
 			}
 			break;
-		case 3:
+		case 0:
 			running = false; //change the running status to false, so it wont continue run
-			std::cout << "Stoping the program. Bye!";
+			std::cout << "\nStoping the program. Bye!";
 			break;
 		default:
 			std::cout << "Invalid input! Please enter a valid number,\n";

@@ -5,5 +5,6 @@
 #include <limits>
 
 int intgerinputfilter(const std::string& prompt);
+std::string stringinputfilter(const std::string& prompt);
 
 #endif 
