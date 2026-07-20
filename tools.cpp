@@ -5,7 +5,8 @@
 #include <string>
 
 int intgerinputfilter(const std::string& prompt) { // to cout the prompt and get the input from user, then check if it is valid
-    std::string input; 
+    std::cin.clear();
+	std::string input; 
     while (true) {
         std::cout << prompt;
 
@@ -33,7 +34,8 @@ int intgerinputfilter(const std::string& prompt) { // to cout the prompt and get
 std::string stringinputfilter(const std::string& prompt) {
     std::string input;
     while (true) {
-        std::cout << prompt;
+        std::cin.clear();
+		std::cout << prompt;
         if (!std::getline(std::cin, input)) {
             return ""; // Return empty string on input failure
         }
