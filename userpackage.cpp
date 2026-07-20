@@ -171,15 +171,15 @@ void modifyUserPackage(User& currentUser, const std::vector<Course>& allCourse) 
         
         bool foundCourse = false;
         for (const auto& c : allCourse) {
-        if (c.id == id) {
-        currentUser.mypackage.push_back(c);
-        std::cout << "\n------------------\n";
-        std::cout << "Added " << c.Name << " to package!\n";
-        saveUserCourses(currentUser);
-        std::cout << "[DEBUG] Saved the data into the text file.\n";
-        foundCourse = true;
-        break;
-        }
+            if (c.id == id) {
+                currentUser.mypackage.push_back(c);
+                std::cout << "\n------------------\n";
+                std::cout << "Added " << c.Name << " to package!\n";
+                saveUserCourses(currentUser);
+                std::cout << "[DEBUG] Saved the data into the text file.\n";
+                foundCourse = true;
+                break;
+            }
         }
 		if (foundCourse) {
 			break; // Exit the loop if a course was successfully added
