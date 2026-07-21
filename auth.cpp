@@ -17,7 +17,7 @@ void registerUser() {
     //check if username already exists
     do {
         checkname = false;
-		newUser.username = stringinputfilter("Create username: "); //call the input filter function to get the input and check if it is valid
+		newUser.username = stringinputfilter("Create username: (Enter 0 to cancel registration)"); //call the input filter function to get the input and check if it is valid
 
 		if (newUser.username == "0") {
 			std::cout << "Registration cancelled.\n";
@@ -66,12 +66,12 @@ void registerUser() {
 
 		if (newUser.codeT == -1) {
 			std::cout << "Invalid input. Please try again.\n";
-			return;
+			continue;
 		}
 
 		if (newUser.codeT == -2) {
 			std::cout << "Input cannot be empty. Please enter a valid number.\n";
-			return;
+			continue;
 		}
 
         if (newUser.codeT == newUser.teacherCode) { //detect teacher code from models.h
@@ -79,6 +79,7 @@ void registerUser() {
         }
         else {
             std::cout << "Code invalid.\n";
+			continue;
         }
     }
     else {
@@ -100,7 +101,7 @@ void registerUser() {
 //Check name and password from txt file and send result to main
 bool login(User& currentUser) {
     std::string inputU, inputP;
-    inputU = stringinputfilter("Username: ");
+    inputU = stringinputfilter("Username: (Enter 0 to cancel login) ");
     
 	if (inputU == "0") {
 		std::cout << "Login cancelled.\n";
