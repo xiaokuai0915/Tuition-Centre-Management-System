@@ -22,7 +22,7 @@ void showUserMenu(User& currentUser) { //recieve current user detail
 
 	while (loggedIn) {
 		std::cout << "\n--- User Menu --- \n";
-		std::cout << "1. View All Courses\n2. Add Course to Package\n3. Review my package\n4. Remove Course from Package\n5. Modify my package\n6. Search Booking\n0. Log out \nPlease choose one option by typing the number\n";
+		std::cout << "1. View All Courses\n2. Add Course to Package\n3. Review my package\n4. Remove Course from Package\n5. Modify my package\n6. Search Booking Record\n0. Log out \nPlease choose one option by typing the number\n";
 		subChoice = intgerinputfilter("Enter your choice: "); //call the input filter function to get the input and check if it is valid	
 
 		if (subChoice == -1) {
