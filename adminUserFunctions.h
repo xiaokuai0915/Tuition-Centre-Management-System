@@ -1,16 +1,11 @@
 #ifndef ADMINUSERFUNCTIONS_H
 #define ADMINUSERFUNCTIONS_H
 
-#include <iostream>
-#include <fstream>
-#include <sstream>
-#include <map>
-#include <string>
-#include "tools.h"
-
+void userModulePortal();
 void addNewUser();
 void searchUser();
 void updateUser();
 void deleteUser();
+void displayUser();
 
-#endif
+#endif // !ADMINUSERFUNCTIONS_H
