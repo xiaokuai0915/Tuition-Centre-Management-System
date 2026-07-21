@@ -66,12 +66,12 @@ void registerUser() {
 
 		if (newUser.codeT == -1) {
 			std::cout << "Invalid input. Please try again.\n";
-			continue;
+			return;
 		}
 
 		if (newUser.codeT == -2) {
 			std::cout << "Input cannot be empty. Please enter a valid number.\n";
-			continue;
+			return;
 		}
 
         if (newUser.codeT == newUser.teacherCode) { //detect teacher code from models.h
@@ -79,7 +79,7 @@ void registerUser() {
         }
         else {
             std::cout << "Code invalid.\n";
-			continue;
+			return;
         }
     }
     else {
