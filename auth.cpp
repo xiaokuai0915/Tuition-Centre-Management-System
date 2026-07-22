@@ -17,7 +17,7 @@ void registerUser() {
     //check if username already exists
     do {
         checkname = false;
-		newUser.username = stringinputfilter("Create username: (Enter 0 to cancel registration)"); //call the input filter function to get the input and check if it is valid
+		newUser.username = stringinputfilter("Create username (Enter 0 to cancel registration) : "); //call the input filter function to get the input and check if it is valid
 
 		if (newUser.username == "0") {
 			std::cout << "Registration cancelled.\n";
@@ -101,7 +101,7 @@ void registerUser() {
 //Check name and password from txt file and send result to main
 bool login(User& currentUser) {
     std::string inputU, inputP;
-    inputU = stringinputfilter("Username: (Enter 0 to cancel login) ");
+    inputU = stringinputfilter("Username (Enter 0 to cancel registration) : ");
     
 	if (inputU == "0") {
 		std::cout << "Login cancelled.\n";
