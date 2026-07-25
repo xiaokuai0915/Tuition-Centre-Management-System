@@ -7,7 +7,7 @@
 
 int main() {
 	//a basic loop system to keep alive
-	User currentUser; //for user
+	User currentUser; //create a user based on the struct declared on models.h
 	
 
 	int choice;
