@@ -120,8 +120,8 @@ bool login(User& currentUser) {
         std::cout << "[DEBUG] Comparing " << inputU << " with " << fileU << "\n"; //temporary for me to debug, i just leave it here until when we need to delete it :D
 
         if (fileU == inputU && fileP == inputP) {
-            currentUser.username = inputU;
-            currentUser.role = fileR;
+            currentUser.username = inputU; //if entered username and password is both found from the text file and it is correct
+            currentUser.role = fileR;  // assign username and role into the user structure that create on main file
             return true;
         }
 
