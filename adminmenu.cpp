@@ -22,9 +22,9 @@ void showAdminMenu(User& currentUser) {
 		std::cout << "Welcome, Admin.\n\n";
 
 		std::cout << "Choose one option by typing number:\n1. User Module\n2. Subject Module\n3. Schedule Module\n4. Booking Module\n5. Reporting Module\n0. Back to Main Menu\n";
-		std::cout << std::setfill('=') << std::setw(50) << '\n';
+		std::cout << std::setfill('=') << std::setw(50) << "" << '\n';
 
-		subchoice = intgerinputfilter("\nEnter your choice(0-5)= ");
+		subchoice = intgerinputfilter("Enter your choice(0-5)= ");
 		if (subchoice == -1) {
 			std::cout << "Invalid input! Please enter a valid number\n";
 			continue;
@@ -38,7 +38,7 @@ void showAdminMenu(User& currentUser) {
 		//using switch instead of if else
 		switch (subchoice) {
 		case 1:
-			userModulePortal();
+			userModulePortal(currentUser);
 			break;
 		case 2:
 			//subject module
@@ -50,7 +50,7 @@ void showAdminMenu(User& currentUser) {
 			break;
 		case 5:
 			std::cout << "\n[!] Opening Reporting Module dashboard......\n";//load the report module
-			showReportModule();
+			void showReportModule(const std::vector<User>&studentList);
 			break;
 		case 0:
 			loggedin = false;
@@ -60,6 +60,5 @@ void showAdminMenu(User& currentUser) {
 			std::cout << "Invalid input! Please enter a valid number.\n\n";
 			break;
 		}
-
 	}
 }
