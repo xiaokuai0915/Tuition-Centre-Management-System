@@ -1,10 +1,10 @@
 #include <iostream>
 #include <iomanip>
 #include <vector>
-#include "models.h"
-#include "menu.h"
+#include "../Utils/models.h"
+#include "../Utils/menu.h"
 #include "report.h"
-#include "tools.h"
+#include "../Utils/tools.h"
 #include "adminUserFunctions.h"
 
 

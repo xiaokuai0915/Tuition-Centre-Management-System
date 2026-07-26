@@ -1,12 +1,13 @@
 #include <iostream>
 #include "auth.h"
-#include "models.h"
-#include "menu.h"
-#include "storage.h"
-#include "tools.h"
+#include "../Utils/models.h"
+#include "../Utils/menu.h"
+#include "../Utils/storage.h"
+#include "../Utils/tools.h"
 
 int main() {
 	//a basic loop system to keep alive
+	DATA(); //create a folder called Data to store all the txt file if it is not exist yet
 	User currentUser; //create a user based on the struct declared on models.h
 	
 

@@ -1,6 +1,6 @@
 #ifndef STORAGE
 #define STORAGE
-#include "auth.h"
+#include "../auth.h"
 
 void saveUserCourses(const User& currentUser);
 void loadUserCourses(User& currentUser);
@@ -11,5 +11,6 @@ extern int logCounter; // Counter to keep track of the number of logs
 void recordUserAction(int courseId, const std::string& name, int statusCode, const std::string& username);
 void loadActionLogs(); 
 void searchBooking();
+void DATA();
 
 #endif

@@ -2,8 +2,8 @@
 #include <iomanip>
 #include <iostream>
 #include <string>
-#include "tools.h"
-#include "storage.h"
+#include "../Utils/tools.h"
+#include "../Utils/storage.h"
 
 // 1. Add a course to the user's course package
 void addCoursetoPackage(User& currentUser, const std::vector<Course>& allCourse) {

@@ -1,5 +1,5 @@
 #include "adminUserFunctions.h"
-#include "tools.h"
+#include "../Utils/tools.h"
 #include <iostream>
 #include <iomanip>
 #include <fstream>
@@ -56,7 +56,7 @@ void userModulePortal(User& currentUser) {
 }
 
 void addNewUser() {
-    std::ofstream outfile("user.txt", std::ios::app);
+    std::ofstream outfile("Data/user.txt", std::ios::app);
     std::string username, password;
     int role;
 
@@ -70,7 +70,7 @@ void addNewUser() {
             return;
         }
 
-        std::ifstream file("user.txt");
+        std::ifstream file("Data/user.txt");
         std::string fileU, fileP;
         int fileR;
 
@@ -106,7 +106,7 @@ void addNewUser() {
 }
 
 void searchUser() {
-    std::ifstream infile("user.txt");
+    std::ifstream infile("Data/user.txt");
     std::string username, password;
     int role;
 
@@ -132,7 +132,7 @@ void searchUser() {
 }
 
 void updateUser(User& currentUser) {
-    std::ifstream infile("user.txt");
+    std::ifstream infile("Data/user.txt");
     std::string username, password;
     int role;
     std::vector<User> userList;
@@ -156,7 +156,7 @@ void updateUser(User& currentUser) {
                     return;
                 }
 
-                std::ifstream file("user.txt");
+                std::ifstream file("Data/user.txt");
                 std::string fileU, fileP;
                 int fileR;
 
@@ -198,7 +198,7 @@ void updateUser(User& currentUser) {
     infile.close();
 
     if (found) { //rewrites userList into user.txt if got changes
-        std::ofstream outfile("user.txt");
+        std::ofstream outfile("Data/user.txt");
         for (User& u : userList) {
             outfile << u.username << " " << u.password << " " << u.role << "\n";
         }
@@ -211,7 +211,7 @@ void updateUser(User& currentUser) {
 }
 
 void deleteUser(User& currentUser) {
-    std::ifstream infile("user.txt");
+    std::ifstream infile("Data/user.txt");
     std::string username, password;
     int role;
     std::vector<User> userList;
@@ -239,7 +239,7 @@ void deleteUser(User& currentUser) {
     infile.close();
 
     if (found) { //rewrites userList into user.txt if got changes
-        std::ofstream outfile("user.txt");
+        std::ofstream outfile("Data/user.txt");
         for (User& u : userList) {
             outfile << u.username << " " << u.password << " " << u.role << "\n";
         }
@@ -252,7 +252,7 @@ void deleteUser(User& currentUser) {
 }
 
 void displayUser() {
-    std::ifstream infile("user.txt");
+    std::ifstream infile("Data/user.txt");
     std::string username, password; int role;
 
     std::cout << std::setfill(' ');
@@ -303,43 +303,43 @@ void displayUser() {
         << "- -------------------- - ------- -\n";
 
     switch (displayChoice) {
-        case 1:
-            for (const User& user : allUsers) { //display all user records
+    case 1:
+        for (const User& user : allUsers) { //display all user records
+            std::cout << "| "
+                << std::left << std::setw(20) << user.username
+                << " | "
+                << (user.role == 1 ? "Teacher" : "Student")
+                << " |\n";
+            totalUser++;
+        }
+        std::cout << "- -------------------- - ------- -\n"
+            << "                    Total Users: " << totalUser << std::endl;
+        break;
+
+    case 2:
+        for (const User& user : allUsers) { //display teacher records
+            if (user.role == 1) {
                 std::cout << "| "
                     << std::left << std::setw(20) << user.username
-                    << " | "
-                    << (user.role == 1 ? "Teacher" : "Student")
-                    << " |\n";
+                    << " | Teacher |\n";
                 totalUser++;
             }
-            std::cout << "- -------------------- - ------- -\n"
-                << "                    Total Users: " << totalUser << std::endl;
-            break;
+        }
+        std::cout << "- -------------------- - ------- -\n"
+            << "                  Total teacher: " << totalUser << std::endl;
+        break;
 
-        case 2:
-            for (const User& user : allUsers) { //display teacher records
-                if (user.role == 1) {
-                    std::cout << "| "
-                        << std::left << std::setw(20) << user.username
-                        << " | Teacher |\n";
-                    totalUser++;
-                }
+    case 3:
+        for (const User& user : allUsers) { //display student records
+            if (user.role == 0) {
+                std::cout << "| "
+                    << std::left << std::setw(20) << user.username
+                    << " | Student |\n";
+                totalUser++;
             }
-            std::cout << "- -------------------- - ------- -\n"
-                << "                  Total teacher: " << totalUser << std::endl;
-            break;
-
-        case 3:
-            for (const User& user : allUsers) { //display student records
-                if (user.role == 0) {
-                    std::cout << "| "
-                        << std::left << std::setw(20) << user.username
-                        << " | Student |\n";
-                    totalUser++;
-                }
-            }
-            std::cout << "- -------------------- - ------- -\n"
-                << "                  Total student: " << totalUser << std::endl;
-            break;
+        }
+        std::cout << "- -------------------- - ------- -\n"
+            << "                  Total student: " << totalUser << std::endl;
+        break;
     }
 }

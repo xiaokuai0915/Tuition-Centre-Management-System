@@ -1,11 +1,11 @@
 #include <fstream>
-#include "auth.h"
+#include "../auth.h"
 #include <string>
 #include <iostream>
-#include "menu.h"
-#include "models.h"
-#include "storage.h"
-#include "tools.h"
+#include "../Utils/menu.h"
+#include "../Utils/models.h"
+#include "../Utils/storage.h"
+#include "../Utils/tools.h"
 #include "userpackage.h"
 #include <vector>
 

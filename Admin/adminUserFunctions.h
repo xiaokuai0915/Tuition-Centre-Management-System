@@ -1,7 +1,7 @@
 #ifndef ADMINUSERFUNCTIONS_H
 #define ADMINUSERFUNCTIONS_H
 
-#include "models.h"
+#include "../Utils/models.h"
 
 void userModulePortal(User& currentUser);
 void addNewUser();

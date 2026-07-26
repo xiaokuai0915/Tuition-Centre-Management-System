@@ -4,17 +4,24 @@
 #include <vector>
 #include "tools.h"
 #include "models.h"
-#include "auth.h"
+#include "../auth.h"
 #include "menu.h"
 #include "storage.h"
+#include <filesystem>
 
 std::string logActionName[MAX_LOGS];
 int logMatrix2D[MAX_LOGS][3];
 int logCounter = 0;
 
+void DATA() {
+	if (!std::filesystem::exists("Data")) {
+		std::filesystem::create_directory("Data");
+	}
+}
+
 void saveUserCourses(const User& currentUser) { //load current user profile
 	std::vector<std::string> otherUserData;  //using vector to temporary save other user profile（and skip the current user one first)
-	std::ifstream infile("user_courses.txt"); //open user_courses.txt file
+	std::ifstream infile("Data/user_courses.txt"); //open user_courses.txt file
 	std::string line;
 
 	while (std::getline(infile, line)) {  //loop , read all the things inside the file one by one and store into variable line
@@ -24,7 +31,7 @@ void saveUserCourses(const User& currentUser) { //load current user profile
 	}
 	infile.close();//close the file to avoid error 
 
-	std::ofstream outfile("user_courses.txt");//write the file
+	std::ofstream outfile("Data/user_courses.txt");//write the file
 
 	for (const auto& l : otherUserData) {//write all the things into the file one by one that alr store in the vector
 		outfile << l << "\n";// l is temporary variable that create on row 22, this is write all the other user profile things back to the file
@@ -36,7 +43,7 @@ void saveUserCourses(const User& currentUser) { //load current user profile
 }
 
 void loadUserCourses(User& currentUser) {
-	std::ifstream infile("user_courses.txt");//read the file
+	std::ifstream infile("Data/user_courses.txt");//read the file
 	std::string line;
 	currentUser.mypackage.clear();//clean the vector before read
 
@@ -63,7 +70,7 @@ void loadUserCourses(User& currentUser) {
 }
 
 void loadActionLogs() {
-	std::ifstream inFile("action_logs.txt"); //open action_logs.txt to read previous history
+	std::ifstream inFile("Data/action_logs.txt"); //open action_logs.txt to read previous history
 	if (!inFile.is_open()) {
 		return; //if file doesnt exist yet (first time run), just return nothing
 	}
@@ -97,7 +104,7 @@ void recordUserAction(int courseId, const std::string& name, int statusCode, con
 	logMatrix2D[logCounter][2] = logCounter + 1; // Use logCounter + 1 as a simple timestamp or unique identifier (col 2)
 	logCounter++;                                      //move to next index
 
-	std::ofstream outFile("action_logs.txt", std::ios::app); //open file with append mode to save permanently
+	std::ofstream outFile("Data/action_logs.txt", std::ios::app); //open file with append mode to save permanently
 	if (outFile.is_open()) {
 		outFile << username << " " << name << " " << courseId << " " << statusCode << "\n"; //write log format into text
 		outFile.close(); //close file

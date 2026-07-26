@@ -1,7 +1,7 @@
 #include <fstream>
 #include "tools.h"
 #include "auth.h"
-#include "models.h"
+#include "../Utils/models.h"
 #include <string>
 #include <iostream>
 #include <limits>
@@ -24,7 +24,7 @@ void registerUser() {
 			return;
 		}
 
-        std::ifstream inFile("user.txt"); //ifstream means read the file
+        std::ifstream inFile("Data/user.txt"); //ifstream means read the file
         std::string fileU, fileP;
         int fileR;
 
@@ -88,7 +88,7 @@ void registerUser() {
 
     if (registration) {
         //ofstream is create or edit the file, ios::app is to keep the previous thing that alr available inside the file so it wont get wipe out when running this row
-        std::ofstream outFile("user.txt", std::ios::app);
+        std::ofstream outFile("Data/user.txt", std::ios::app);
         outFile << newUser.username << " " << newUser.password << " " << newUser.role << "\n"; // store username , password, role one by one
         outFile.close();//close the file to avoid error input into the file
         std::cout << "Registered successfully! Please log in now!\n";
@@ -110,7 +110,7 @@ bool login(User& currentUser) {
 
     inputP = stringinputfilter("Password: ");
 
-    std::ifstream inFile("user.txt"); //ifstream means read the file
+    std::ifstream inFile("Data/user.txt"); //ifstream means read the file
     std::string fileU, fileP;
     int fileR;
 
