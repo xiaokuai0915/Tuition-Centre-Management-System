@@ -12,8 +12,8 @@ void registerUser() {
     User newUser;
     bool checkname;
     bool registration = false;
-
-
+	int teacherCode = 1234; //teacher code to register as teacher, can be changed to any number you want
+    int codeT;
     //check if username already exists
     do {
         checkname = false;
@@ -62,19 +62,19 @@ void registerUser() {
     } while (true); //code always run unless breaked
 
     if (newUser.role == 1) {
-        newUser.codeT = intgerinputfilter("Enter Teacher code: "); //call the input filter function to get the input and check if it is valid
+        codeT = intgerinputfilter("Enter Teacher code: "); //call the input filter function to get the input and check if it is valid
 
-		if (newUser.codeT == -1) {
+		if (codeT == -1) {
 			std::cout << "Invalid input. Please try again.\n";
 			return;
 		}
 
-		if (newUser.codeT == -2) {
+		if (codeT == -2) {
 			std::cout << "Input cannot be empty. Please enter a valid number.\n";
 			return;
 		}
 
-        if (newUser.codeT == newUser.teacherCode) { //detect teacher code from models.h
+        if (codeT == teacherCode) { //detect teacher code from models.h
             registration = true;
         }
         else {
