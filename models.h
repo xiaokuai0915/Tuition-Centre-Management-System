@@ -15,9 +15,9 @@ struct User {
 	std::string username;
 	std::string password;
 	std::vector<Course> mypackage;
-	int level = 0;
-	int code = 0;
-	int adminCode = 123456; //code to register as a admin
+	int role = 0;
+	int codeT = 0;
+	int teacherCode = 123; //code to register as a teacher
 };
 
 #endif

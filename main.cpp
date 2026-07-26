@@ -3,22 +3,27 @@
 #include "models.h"
 #include "menu.h"
 #include "storage.h"
-
+#include "tools.h"
 
 int main() {
 	//a basic loop system to keep alive
-	User currentUser;
+	User currentUser; //create a user based on the struct declared on models.h
+	
 
 	int choice;
 	bool running = true; //set it to keep running until true become false
 
 	while (running) {
 		std::cout << "\n--- Welcome System --\n";
-		std::cout << "1. Register\n2. Login\n3. Exit\nPlease choose one option by typing the number\n";
-
-		if (!(std::cin >> choice)) {//input filter
-			std::cin.clear();
-			std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
+		std::cout << "1. Register\n2. Login\n0. Exit\nPlease choose one option by typing the number\n";
+		choice = intgerinputfilter("Enter your choice: ");//call the input filter function to get the input and check if it is valid
+		if (choice == -1) {
+			std::cout << "Invalid input! Please enter a valid number\n";
+			continue;
+		}
+		if (choice == -2) {
+			std::cout << "Input cannot be empty! Please enter a valid number\n";
+			continue;
 		}
 
 		//switch here get result from the choice and entering it to case for different result
@@ -27,19 +32,27 @@ int main() {
 			registerUser(); //take result from auth.cpp and continue
 			break; //break means end this case and go back to the choice section
 		case 2:
-			if (login(currentUser)) { //same here take result from auth.cpp and continue
-				std::cout << "Login successful! Redirecting to user menu\n";
-				loadUserCourses(currentUser); //load user saved course
-				showUserMenu(currentUser); //load user menu
+			if (login(currentUser)) { //call login
+				std::cout << "Login successful!\n";
+
+				if (currentUser.role == 1) { //for admin role
+					std::cout << "Redirecting to admin menu...\n";
+					showAdminMenu(currentUser); 
+				}
+				else if (currentUser.role == 0) { //for student role
+					std::cout << "Redirecting to user menu...\n";
+					loadUserCourses(currentUser); //load user profile from storage.cpp
+					loadActionLogs(); //load action logs from storage.cpp
+					showUserMenu(currentUser);
+				}
 			}
-			else
-			{
-				std::cout << "Login failed\n";
+			else {
+				std::cout << "\nLogin failed! Please try again.\n";
 			}
 			break;
-		case 3:
+		case 0:
 			running = false; //change the running status to false, so it wont continue run
-			std::cout << "Stoping the program. Bye!";
+			std::cout << "\nStoping the program. Bye!";
 			break;
 		default:
 			std::cout << "Invalid input! Please enter a valid number,\n";
