@@ -110,32 +110,32 @@ void generateDetailReport() {
 			if (user.mypackage.empty()) {   //if the course txt file is empty then give error message
 				std::cout << "\nERROR. This student has not registered any course.\n";  //when they is no course recorded in this user, return an error message
 			}
-			else {  //a loop for the compiler to load the specific user's course one by one
-				for (size_t j = 0; j < user.mypackage.size(); ++j) {
-					//detail report menu
-					std::cout << '\n' << std::string(78, '=') << "\n";
-					std::cout << std::string(30, ' ') << "Detailed Report\n";
-					std::cout << std::string(78, '=') << '\n';
-					std::cout << "Name: " << user.username << '\n';
-					std::cout << std::string(78,'=') << '\n';
-					std::cout << "[Class Enrolled]\n";
-					std::cout << "Total course taken: " << user.mypackage.size() << '\n';
-					std::cout << std::string(78, '-') << '\n';
-					std::cout << "Course ID" << std::string(13, ' ') << "Course Name" << std::string(21, ' ') << "Price (RM)\n";
-					std::cout << std::string(78, '-') << '\n';
-					std::cout << " " << user.mypackage[j].id << std::string(20, ' ') << user.mypackage[j].Name << std::string(21, ' ') << "RM " << std::fixed << std::setprecision(2) << user.mypackage[j].price << '\n';
-					std::cout << std::string(78, '-') << '\n';
-					break;
-				}
-			}
+			else {
+				//detail report menu
+				std::cout << '\n' << std::string(78, '=') << "\n";
+				std::cout << std::string(30, ' ') << "Detailed Report\n";
+				std::cout << std::string(78, '=') << '\n';
+				std::cout << "Name: " << user.username << '\n';
+				std::cout << std::string(78, '=') << '\n';
+				std::cout << "[Class Enrolled]\n";
+				std::cout << "Total course taken: " << user.mypackage.size() << '\n';
+				std::cout << std::string(78, '-') << '\n';
+				std::cout << std::setfill(' ');
+				std::cout << std::left << std::setw(14) << "Course ID" << std::left << std::setw(46) << "Course Name" << std::right << std::setw(14) << "Price (RM)\n";
+				std::cout << std::string(78, '-') << '\n';
 
-		}
-		else {
-			std::cout << "User not found!";  //if the user not found, return error message and end loop
-			break;
+				//a loop for the compiler to load the specific user's course one by one from the course.txt file
+				for (size_t j = 0; j < user.mypackage.size(); ++j) {
+				std::cout << " " << std::left << std::setw(13) << user.mypackage[j].id << std::left << std::setw(46) << user.mypackage[j].Name << std::right << std::setw(6) << "RM " << std::fixed << std::setprecision(2) << user.mypackage[j].price << '\n';
+				}
+				std::cout << std::string(78, '-') << '\n';	
+			}
 		}
 	}
-
+	if (!founduser) {
+		std::cout << "User not found!";  //if the user not found, return error message and end loop
+		founduser = false;
+	}
 }
 
 //case 3 
