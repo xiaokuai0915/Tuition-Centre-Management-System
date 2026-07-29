@@ -21,7 +21,7 @@ void showAdminMenu(User& currentUser) {
 		std::cout << "==========\n";
 		std::cout << "Welcome, Admin.\n\n";
 
-		std::cout << "Choose one option by typing number:\n1. User Module\n2. Subject Module\n3. Schedule Module\n4. Booking Module\n5. Reporting Module\n0. Back to Main Menu\n";
+		std::cout << "Choose one option by typing number:\n1. User Module\n2. Subject Module\n3. Schedule Module\n4. Reporting Module\n0. Back to Main Menu\n";
 		std::cout << std::setfill('=') << std::setw(50) << '\n';
 
 		subchoice = intgerinputfilter("\nEnter your choice(0-5)= ");
@@ -50,10 +50,6 @@ void showAdminMenu(User& currentUser) {
 			//schedule module
 			break;
 		case 4:
-			std::cout << "\n[!] Opening Booking Module dashboard......\n";//load the booking module
-			//booking module
-			break;
-		case 5:
 			std::cout << "\n[!] Opening Reporting Module dashboard......\n";//load the report module
 			showReportModule();
 			break;
