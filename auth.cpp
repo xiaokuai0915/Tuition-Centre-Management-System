@@ -101,7 +101,7 @@ void registerUser() {
 //Check name and password from txt file and send result to main
 bool login(User& currentUser) {
     std::string inputU, inputP;
-    inputU = stringinputfilter("Username (Enter 0 to cancel registration) : ");
+    inputU = stringinputfilter("Username (Enter 0 to cancel login) : ");
     
 	if (inputU == "0") {
 		std::cout << "Login cancelled.\n";
