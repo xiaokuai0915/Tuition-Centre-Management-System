@@ -13,7 +13,7 @@ int main() {
 
 	int choice;
 	bool running = true; //set it to keep running until true become false
-
+	int status;
 	while (running) {
 		std::cout << "\n--- Welcome System --\n";
 		std::cout << "1. Register\n2. Login\n0. Exit\nPlease choose one option by typing the number\n";
@@ -33,7 +33,8 @@ int main() {
 			registerUser(); //take result from auth.cpp and continue
 			break; //break means end this case and go back to the choice section
 		case 2:
-			if (login(currentUser)) { //call login
+			status = login(currentUser); //take result from auth.cpp and continue
+			if(status == 0) { //call login
 				std::cout << "Login successful!\n";
 
 				if (currentUser.role == 1) { //for admin role
@@ -47,8 +48,12 @@ int main() {
 					showUserMenu(currentUser);
 				}
 			}
+			if (status == 1) {
+				std::cout << "Login cancelled.\n";
+				break;
+			}
 			else {
-				std::cout << "\nLogin failed! Please try again.\n";
+				std::cout << "Login failed! Please try again.\n";
 			}
 			break;
 		case 0:

@@ -1,5 +1,6 @@
 #include "adminUserFunctions.h"
 #include "../Utils/tools.h"
+#include "../Utils/models.h"
 #include <iostream>
 #include <iomanip>
 #include <fstream>

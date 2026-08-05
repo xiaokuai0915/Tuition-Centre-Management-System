@@ -4,6 +4,64 @@
 #include <string>
 #include "../Utils/tools.h"
 #include "../Utils/storage.h"
+#include "../Utils/models.h"
+
+void userpackage(User& currentUser, const std::vector<Course>& allCourse) {
+    bool running = true; //loop control
+    while (running) {
+        std::cout << "\n---View Course or Manage Course Section---\n========================================\n1.View All Courses\n2.Add Course to Package\n3.Review my package\n4.Remove Course from Package\n5.Modify my package\n6.Search Booking Record\n0.Back to User Menu\n========================================\nPlease choose one option by typing the number\n";
+        int subChoice = intgerinputfilter("Enter your choice: "); //call the input filter function to get the input and check if it is valid)
+        
+        if (subChoice == -1) {
+            std::cout << "Invalid input. Please try again!\n";
+            continue;
+        }
+
+        if (subChoice == -2) {
+            std::cout << "Input cannot be empty. Please enter a valid number.\n";
+            continue;
+        }
+
+        if (subChoice == 1) {
+            for (const auto& c : allCourse) { /* c is temporary variable, autolet it auto detect the type of variable of c for allCourse that store in vector
+                                                 const to avoid is telling the compiler to read the file only(no edit to the file)    & direct pass by reference ( no need to copy anymore so faster)*/
+                std::cout << '\n';
+                std::cout << "ID= " << c.id << ". " << c.Name << " - $" << c.price << "\n"; //since all the variable type is auto sync so can direct output easily
+            }
+        }
+        else if (subChoice == 2) {
+            std::cout << "\n--- Add Course to Package ---\n";
+            addCoursetoPackage(currentUser, allCourse);
+        }
+
+        else if (subChoice == 3) {
+            myCourseSummary(currentUser, allCourse); 
+        }
+
+        else if (subChoice == 4) {
+            removeCoursefromPackage(currentUser, allCourse); 
+        }
+
+        else if (subChoice == 5) {
+            modifyUserPackage(currentUser, allCourse); 
+        }
+
+        else if (subChoice == 6) {
+            searchBooking(); 
+        }
+
+        else if (subChoice == 0) {
+            saveUserCourses(currentUser); //back up saving, save one more time to avoid accident
+            running = false;    //end the loop by changing the bool variable on the top of this page
+            std::cout << "Redirecting back to User Menu...\n";
+            break;
+        }
+        else {
+            std::cout << "Invalid option, try again.\n";
+        }
+
+    }
+}
 
 // 1. Add a course to the user's course package
 void addCoursetoPackage(User& currentUser, const std::vector<Course>& allCourse) {
@@ -12,6 +70,7 @@ void addCoursetoPackage(User& currentUser, const std::vector<Course>& allCourse)
         std::cout << "Invalid input. Please try again!\n";
         return;
     }
+
     if (id == -2) {
         std::cout << "Input cannot be empty. Please enter a valid number.\n";
         return;
@@ -23,7 +82,6 @@ void addCoursetoPackage(User& currentUser, const std::vector<Course>& allCourse)
     }
     if (alreadyExists) {
         std::cout << "Error: Course (ID =" << id << ") already exists in your package\n";
-        return;
     }
     else {
         bool found = false; // Flag to check if we can find this ID in all available courses
@@ -37,12 +95,10 @@ void addCoursetoPackage(User& currentUser, const std::vector<Course>& allCourse)
                 recordUserAction(id, "ADD", 1, currentUser.username); // Log the action into the 1D/2D arrays and txt file
                 saveUserCourses(currentUser); // Save immediately to prevent data loss if the program closes halfway
                 std::cout << "[DEBUG] Saved the data into the text file.\n";
-                return;
             }
         }
         if (!found) {
             std::cout << "Course not found in the available courses.\n"; // Finished checking but ID doesn't exist
-            return;
         }
     }
 }
@@ -51,8 +107,8 @@ void addCoursetoPackage(User& currentUser, const std::vector<Course>& allCourse)
 void myCourseSummary(User& currentUser, const std::vector<Course>& allCourse) {
     if (currentUser.mypackage.empty()) {
         std::cout << "Your package is currently empty.\n"; // If the package is empty, notify the user
-        return;
     }
+
     std::cout << "\n--- My Package Summary ---\n";
     double total = 0;
     for (const auto& c : currentUser.mypackage) { // Loop through every course in the user's package
@@ -66,8 +122,8 @@ void myCourseSummary(User& currentUser, const std::vector<Course>& allCourse) {
 void removeCoursefromPackage(User& currentUser, const std::vector<Course>& allCourse) {
     if (currentUser.mypackage.empty()) {
         std::cout << "Your package is currently empty.\n";
-        return;
     }
+
     std::cout << "\n--- Remove Course from Package ---\n";
     for (const auto& c : currentUser.mypackage) { // First, list out what courses the user currently has
         std::cout << "(ID=" << c.id << ") - " << c.Name << " ($" << std::fixed << std::setprecision(2) << c.price << ")\n";
@@ -77,6 +133,7 @@ void removeCoursefromPackage(User& currentUser, const std::vector<Course>& allCo
         std::cout << "Invalid input. Please try again!\n";
         return;
     }
+
     if (id == -2) {
         std::cout << "Input cannot be empty. Please enter a valid number.\n";
         return;
@@ -95,7 +152,6 @@ void removeCoursefromPackage(User& currentUser, const std::vector<Course>& allCo
     }
     if (!found) {
         std::cout << "\nCourse ID entered is not found in your package.\n";
-        return;
     }
 }
 
@@ -103,7 +159,6 @@ void removeCoursefromPackage(User& currentUser, const std::vector<Course>& allCo
 void modifyUserPackage(User& currentUser, const std::vector<Course>& allCourse) {
     if (currentUser.mypackage.empty()) {
         std::cout << "Your package is currently empty.\n";
-        return;
     }
 
     std::cout << "\n--- Modify User Package ---\n";

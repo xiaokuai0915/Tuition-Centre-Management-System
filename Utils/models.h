@@ -10,6 +10,8 @@ struct Course {
 	double price = 0.0;
 };
 
+extern std::vector<Course> allCourse; //ask for space to link not real declare
+
 //base struct for the system to create user
 struct User {
 	std::string username;

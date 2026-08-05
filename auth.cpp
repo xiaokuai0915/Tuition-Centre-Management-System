@@ -99,13 +99,12 @@ void registerUser() {
 }
 
 //Check name and password from txt file and send result to main
-bool login(User& currentUser) {
+int login(User& currentUser) { //0 if success, 1 if cancel, 2 if fail
     std::string inputU, inputP;
     inputU = stringinputfilter("Username (Enter 0 to cancel login) : ");
     
 	if (inputU == "0") {
-		std::cout << "Login cancelled.\n";
-		return false;
+		return 1;
 	}
 
     inputP = stringinputfilter("Password: ");
@@ -122,9 +121,9 @@ bool login(User& currentUser) {
         if (fileU == inputU && fileP == inputP) {
             currentUser.username = inputU; //if entered username and password is both found from the text file and it is correct
             currentUser.role = fileR;  // assign username and role into the user structure that create on main file
-            return true;
+            return 0;
         }
 
     }
-    return false;
+    return 2;
 }

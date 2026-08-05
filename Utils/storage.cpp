@@ -121,8 +121,12 @@ void searchBooking() {
 	}
 
 	int searchId = intgerinputfilter("Enter Course ID to search: "); //ask user for course id they want to find
-	if (searchId < 0) {
+	if (searchId == -1) {
 		std::cout << "Invalid input. Please try again!\n";
+		return;
+	}
+	if (searchId == -2) {
+		std::cout << "Input cannot be empty. Please enter a valid number.\n";
 		return;
 	}
 

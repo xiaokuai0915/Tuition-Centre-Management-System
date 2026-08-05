@@ -5,6 +5,6 @@
 #include <string>
 
 void registerUser();
-bool login(User& currentUser);
+int login(User& currentUser);
 
 #endif 
