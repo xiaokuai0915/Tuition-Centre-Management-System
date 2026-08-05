@@ -16,7 +16,7 @@ int main() {
 	int status;
 	while (running) {
 		std::cout << "\n--- Welcome System --\n";
-		std::cout << "1. Register\n2. Login\n0. Exit\nPlease choose one option by typing the number\n";
+		std::cout << "======================================\n1. Register\n2. Login\n0. Exit\n======================================\nPlease choose one option by typing the number\n";
 		choice = intgerinputfilter("Enter your choice: ");//call the input filter function to get the input and check if it is valid
 		if (choice == -1) {
 			std::cout << "Invalid input! Please enter a valid number\n";

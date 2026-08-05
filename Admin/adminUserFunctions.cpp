@@ -64,7 +64,7 @@ void addNewUser() {
     bool checkname;
     do { //check if username exists or not
         checkname = false;
-        username = stringinputfilter("Create username: "); //call the input filter function to get the input and check if it is valid
+        username = stringinputfilter("Create username Enter 0 to cancel registration) : "); //call the input filter function to get the input and check if it is valid
 
         if (username == "0") {
             std::cout << "Registration cancelled.\n";
@@ -150,7 +150,7 @@ void updateUser(User& currentUser) {
             bool checkname;
             do { //check username
                 checkname = false;
-                username = stringinputfilter("Enter new username: ");
+                username = stringinputfilter("Enter new username (Enter 0 to cancel) : ");
 
                 if (username == "0") {
                     std::cout << "Registration cancelled.\n";
@@ -217,7 +217,13 @@ void deleteUser(User& currentUser) {
     int role;
     std::vector<User> userList;
 
-    std::string searchUser = stringinputfilter("Enter username to delete: ");
+    std::string searchUser = stringinputfilter("Enter username to delete (Enter 0 to cancel) : ");
+    
+	if (searchUser == "0") {
+		std::cout << "Deletion cancelled.\n";
+		return;
+	}
+    
     if (searchUser == currentUser.username) { //don't allow to delete logged in user
         std::cout << "Cannot delete logged in user.\n";
         return;

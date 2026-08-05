@@ -16,7 +16,7 @@ void showUserMenu(User& currentUser) { //recieve current user detail
 
 	while (loggedIn) {
 		std::cout << "\n--- User Menu --- \n";
-		std::cout << "1.View Course or Manage Course Section\n2.View timetable for taken course\n0.Log out \nPlease choose one option by typing the number\n";
+		std::cout << "======================================\n1.View Course or Manage Course Section\n2.View timetable for taken course\n0.Log out\n======================================\nPlease choose one option by typing the number\n";
 		subChoice = intgerinputfilter("Enter your choice: "); //call the input filter function to get the input and check if it is valid	
 
 		if (subChoice == -1) {
