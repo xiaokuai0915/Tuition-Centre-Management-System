@@ -260,7 +260,8 @@ void deleteUser(User& currentUser) {
 
 void displayUser() {
     std::ifstream infile("Data/user.txt");
-    std::string username, password; int role;
+    std::string username, password; 
+    int role;
 
     std::cout << std::setfill(' ');
     std::cout << "\nChoose one option by typing number:\n"
