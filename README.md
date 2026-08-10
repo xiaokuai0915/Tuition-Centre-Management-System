@@ -8,7 +8,7 @@
 
 ---
 
-## 🌟 Key Features
+# 🌟 Key Features
 
 - **Secure Authentication System**: Supports role-based login (Administrator and standard User) with input validation, error handling, and cancellation options (`auth.cpp`).
 - **Administrative Control (`Admin/`)**: Comprehensive tools for administrators to manage course menus, generate reports, update user functions, and control system workflows.
@@ -17,7 +17,7 @@
 
 ---
 
-## 📂 Project Structure
+# 📂 Project Structure
 
 ```text
 ├── Admin/
