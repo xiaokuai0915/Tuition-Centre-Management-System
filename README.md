@@ -1,30 +1,9 @@
-# DRAFT! DRAFT! DRAFT! ONLY! w just ignore this gng
+# C++ Tuition-Course-Management-System
 
-
-# Tuition Centre Management System (CS Y1S1 Assignment)
-
-> *If you are reading this, it means my first project and assignment have already been completed and graded. As a result, I am open-sourcing this work.*
-
----
-
-## 📌 Disclaimer & Academic Integrity
-
-This repository is **NOT** intended to be a model or reference solution. Rather, it represents the hard work, iterative problem-solving, and continuous trial-and-error put in by me and my teammates step by step. 
-
-⚠️ **Please do not copy or plagiarize this code to submit as your own academic work.** Academic integrity is important!
-
-## 🎯 Purpose of This Open-Source Release
-
-This code is shared purely for educational and collaborative purposes. It is meant to help:
-* **Curious learners:** Future students who want to explore different ways of implementing a C++ management system.
-* **Troubleshooters:** Anyone who runs into the same bugs, logic hurdles, or roadblocks that my team and I once faced.
-
-## 📂 Project Structure (C++)
-- `Admin/` - Administrative functions, menus, and reporting modules.
-- `User/` - User interface, packages, and menu handlers.
-- `Utils/` - Core utilities, data models, storage handling, and helper tools.
-- `main.cpp` - Application entry point.
-
----
-
-I hope this code can help you. Good luck with your studies! 🚀
+> **Note:** 
+> This project was originally built as a half (my group member part is half done) functional tuition management system. Due to curriculum limitations (we explored some concepts and multi-file structures slightly beyond the official syllabus), this specific version wasn't used for our final submission and became an archived project. However, since we put a lot of effort into it, we are open-sourcing it here for sharing and reference.
+>
+> **⚠️ Disclaimer / 免责声明：**
+> This repository is intended **strictly for learning and reference purposes only**. Any forms of plagiarism, cheating, or direct submission of this code for academic assignments are **strictly prohibited**. The authors assume no liability for any academic integrity violations resulting from the misuse of this code.
+> 
+> 本仓库的代码**仅供学习和参考使用**。严禁将本代码用于任何形式的抄袭、作弊或直接提交作为课程作业。因滥用本代码而导致的任何学术诚信问题，作者概不负责。
