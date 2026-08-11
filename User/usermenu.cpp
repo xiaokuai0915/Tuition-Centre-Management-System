@@ -35,7 +35,6 @@ void showUserMenu(User& currentUser) { //recieve current user detail
 		}
 		else if (subChoice == 2) {
 			std::cout << "Redirecting to timetable section...\nTime table section is currently still in deveploment\nRedirecting back to User Menu...\n";
-			break;
 		}
 		else if (subChoice == 0) {
 			loggedIn = false; //change the running status to false, so it wont continue run
