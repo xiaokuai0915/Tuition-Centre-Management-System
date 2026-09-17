@@ -14,6 +14,7 @@ extern std::vector<Course> allCourse; //ask for space to link not real declare
 
 //base struct for the system to create user
 struct User {
+	int ID = 0;
 	std::string username;
 	std::string password;
 	std::vector<Course> mypackage;

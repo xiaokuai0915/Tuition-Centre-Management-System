@@ -1,8 +1,12 @@
 #include "tools.h"
 #include <iostream>
+#include <iomanip>
 #include <sstream>
 #include <limits>
 #include <string>
+#include <fstream>
+#include <vector>
+#include <conio.h>
 
 int intgerinputfilter(const std::string& prompt) { // to cout the prompt and get the input from user, then check if it is valid
     std::cin.clear();
@@ -49,12 +53,76 @@ std::string stringinputfilter(const std::string& prompt) {
             continue;
         }
 
-        if (input.find(' ') != std::string::npos) {
-            std::cout << "Input cannot contain spaces! Please try again.\n";
+        return input;
+    }
+}
+
+void searchUI(const std::string& searchQuery, const std::vector<std::string>& searchData, int& page) {
+    std::cout << "\033[2J\033[1;1H"
+        << "- ------------------------------------------------------------------- -\n"
+        << "| Search: " << std::left << std::setw(40) << searchQuery << "(ENTER to confirm) |\n"
+        << "- ------------------------------------------------------------------- -\n";
+
+    std::vector<std::string>matchLine;
+    for (const std::string l : searchData) {
+        if (searchQuery.empty()) {
             continue;
         }
-
-        return input;
-
+        if (l.find(searchQuery) != std::string::npos) {
+            matchLine.push_back(l);
+        }
     }
+
+    const int maxDisplay = 10;
+    int totalMatch = matchLine.size();
+    int totalPage = (totalMatch == 0) ? 1 : ceil((double)totalMatch / maxDisplay);
+    if (page > totalPage) {
+        page = totalPage;
+    }
+    else if (page < 1) {
+        page = 1;
+    }
+
+    int start = (page - 1) * maxDisplay;
+    int end = std::min(start + maxDisplay, totalMatch);
+
+    for (int i = start; i < end; ++i) {
+        std::cout << '\t' << matchLine[i] << '\n';
+    }
+
+    std::cout << "- ------------------------------------------------------------------- -\n"
+        << "                                                            Page: " << page << '/' << totalPage;
+}
+std::string liveSearch(const std::vector<std::string>& searchData) {
+    std::string searchQuery = "";
+    int currentPage = 1;
+    while (true) {
+        searchUI(searchQuery, searchData, currentPage);
+        int ch = _getch();
+
+        if (ch == 13) { // Enter
+            break;
+        }
+        else if (ch == 8) { //\b
+            if (!searchQuery.empty()) {
+                searchQuery.pop_back();
+                currentPage = 1;
+            }
+        }
+        else if (ch == 0 || ch == 224) {
+            ch = _getch();
+            if (ch == 75) {
+                currentPage--;
+            }
+            else if (ch == 77) {
+                currentPage++;
+            }
+        }
+        else if (ch >= 32 && ch <= 126) {
+            searchQuery += static_cast<char>(ch);
+            currentPage = 1;
+        }
+    }
+    std::cout << std::endl;
+    return searchQuery;
 }
