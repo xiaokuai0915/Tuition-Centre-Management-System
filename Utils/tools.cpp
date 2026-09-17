@@ -3,6 +3,7 @@
 #include <sstream>
 #include <limits>
 #include <string>
+#include <fstream>
 
 int intgerinputfilter(const std::string& prompt) { // to cout the prompt and get the input from user, then check if it is valid
     std::cin.clear();
@@ -49,12 +50,6 @@ std::string stringinputfilter(const std::string& prompt) {
             continue;
         }
 
-        if (input.find(' ') != std::string::npos) {
-            std::cout << "Input cannot contain spaces! Please try again.\n";
-            continue;
-        }
-
         return input;
-
     }
 }
