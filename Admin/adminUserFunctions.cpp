@@ -1,7 +1,6 @@
 #include "adminUserFunctions.h"
 #include "../Utils/tools.h"
 #include "../Utils/models.h"
-#include "conio.h"
 #include <iostream>
 #include <iomanip>
 #include <fstream>
@@ -13,7 +12,7 @@
 void addNewUser() {
     std::ofstream outfile("Data/user.txt", std::ios::app);
     std::string username, password;
-    int role;
+    int role, ID;
 
     bool checkname;
     do {
@@ -47,6 +46,18 @@ void addNewUser() {
         }
     } while (checkname);
     password = stringinputfilter("Create password: ");
+    std::ifstream inFile("DATA/user.txt");
+    std::string line;
+    int lineCount[] = { 1, 1 };
+    while (std::getline(inFile, line)) {
+        if (line.front() == 'S') {
+            ++lineCount[0];
+        }
+        else if (line.front() == 'T') {
+            ++lineCount[1];
+        }
+    }
+    inFile.close();
     do {
         role = intgerinputfilter("Enter role (Teacher=1, Student=0): ");
         if (role == -1) { //if -1 is returned, it means a !int value is entered
@@ -55,7 +66,12 @@ void addNewUser() {
         else if (role == -2) { //if -2 is returned, it means an empty input was entered
             std::cout << "Input cannot be empty. Please enter a valid number.\n";
         }
-        else if (role == 0 || role == 1) { //role only accepts 0 and 1
+        else if (role == 0) {
+            ID = lineCount[0];
+            break;
+        }
+        else if(role == 1) {
+            ID = lineCount[1];
             break;
         }
         else {
@@ -63,16 +79,9 @@ void addNewUser() {
         }
     } while (true);
 
-    std::ifstream inFile("DATA/user.txt");
-    std::string line;
-    int lineCount = 1;
-    while (std::getline(inFile, line)) {
-        ++lineCount;
-    }
-    inFile.close();
-    int ID = lineCount;
 
-    outfile << ID << "," << username << "," << password << "," << role << std::endl; //Enter data to file
+    outfile << (std::to_string(role) == "0" ? "S" : "T") << std::setfill('0') << std::setw(3) << ID << ","
+        << username << "," << password << "," << role << std::endl; //Enter data to file
     outfile.close();
     std::cout << "User added successfully.\n";
 }
@@ -96,7 +105,7 @@ void updateUser(User& currentUser) {
 
         if (std::getline(ss, fileID, ',')) {
             User u;
-            u.ID = std::stoi(fileID);
+            u.ID = fileID;
             if (std::getline(ss, fileusername, ',') &&
                 std::getline(ss, filepassword, ',') &&
                 std::getline(ss, filerole, ',')) {
@@ -174,7 +183,8 @@ void updateUser(User& currentUser) {
 
         std::ofstream outfile("Data/user.txt");
         for (const User& u : userList) {
-            outfile << u.ID << "," << u.username << "," << u.password << "," << (std::to_string(u.role) == "2" ? "" : std::to_string(u.role)) << "\n";
+            outfile << u.ID << "," << u.username << "," << u.password << ","
+                << (std::to_string(u.role) == "2" ? "" : std::to_string(u.role)) << "\n";
         }
         outfile.close();
         std::cout << "User updated successfully.\n";
@@ -203,7 +213,7 @@ void deleteUser(User& currentUser) {
 
         if (std::getline(ss, fileID, ',')) {
             User u;
-            u.ID = std::stoi(fileID);
+            u.ID = fileID;
             if (std::getline(ss, fileusername, ',') &&
                 std::getline(ss, filepassword, ',') &&
                 std::getline(ss, filerole, ',')) {
@@ -293,7 +303,7 @@ void searchUser() {
             std::getline(ss, filerole, ',')) {
 
             User u;
-            u.ID = std::stoi(fileID);
+            u.ID = fileID;
             u.username = fileusername;
             u.password = filepassword;
             u.role = std::stoi(filerole);
@@ -305,6 +315,11 @@ void searchUser() {
     infile.close();
 
     searchUser = liveSearch(searchData);
+    if (searchUser == "SEARCHCANCEL") {
+        std::cout << "Search cancelled.\n";
+        return;
+    }
+
     for (const User& u : userList) {
         if (searchUser == u.username) {
             std::cout << "User found:\n" << std::left
@@ -362,7 +377,7 @@ void displayUser() {
             std::getline(ss, filerole, ',')) {
 
             User u;
-            u.ID = std::stoi(fileID);
+            u.ID = fileID;
             u.username = fileusername;
             u.password = filepassword;
             u.role = std::stoi(filerole);

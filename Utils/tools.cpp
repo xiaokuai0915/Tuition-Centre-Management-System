@@ -59,8 +59,9 @@ std::string stringinputfilter(const std::string& prompt) {
 
 void searchUI(const std::string& searchQuery, const std::vector<std::string>& searchData, int& page) {
     std::cout << "\033[2J\033[1;1H"
+        << "[ENTER to confirm (Exact name needed)] / [ESC to exit]\n"
         << "- ------------------------------------------------------------------- -\n"
-        << "| Search: " << std::left << std::setw(40) << searchQuery << "(ENTER to confirm) |\n"
+        << "| Search: " << std::left << std::setw(61) << searchQuery << "|\n"
         << "- ------------------------------------------------------------------- -\n";
 
     std::vector<std::string>matchLine;
@@ -102,6 +103,10 @@ std::string liveSearch(const std::vector<std::string>& searchData) {
 
         if (ch == 13) { // Enter
             break;
+        }
+        else if (ch == 27) { //Enter
+            std::cout << std::endl;
+            return "SEARCHCANCEL";
         }
         else if (ch == 8) { //\b
             if (!searchQuery.empty()) {
