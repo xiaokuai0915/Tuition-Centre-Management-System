@@ -4,6 +4,7 @@
 #include "../Utils/models.h"
 #include <string>
 #include <iostream>
+#include <iomanip>
 #include <limits>
 #include <sstream>
 
@@ -13,6 +14,7 @@ void registerUser() {
     User newUser;
     bool checkname;
     bool registration = false;
+    int ID = 0;
 	int teacherCode = 1234; //teacher code to register as teacher, can be changed to any number you want
     int codeT;
     //check if username already exists
@@ -70,6 +72,18 @@ void registerUser() {
         }
     } while (true); //code always run unless breaked
 
+    std::ifstream inFile("DATA/user.txt");
+    std::string line;
+    int lineCount[] = { 1, 1 };
+    while (std::getline(inFile, line)) {
+        if (line.front() == 'S') {
+            ++lineCount[0];
+        }
+        else if (line.front() == 'T') {
+            ++lineCount[1];
+        }
+    }
+    inFile.close();
     if (newUser.role == 1) {
         codeT = intgerinputfilter("Enter Teacher code: "); //call the input filter function to get the input and check if it is valid
 
@@ -82,6 +96,8 @@ void registerUser() {
 		}
 
         if (codeT == teacherCode) { //detect teacher code from models.h
+            newUser.ID = "T";
+            ID = lineCount[1];
             registration = true;
         }
         else {
@@ -89,22 +105,16 @@ void registerUser() {
         }
     }
     else {
+        newUser.ID = "S";
+        ID = lineCount[0];
         registration = true;
     }
 
     if (registration) {
         //ofstream is create or edit the file, ios::app is to keep the previous thing that alr available inside the file so it wont get wipe out when running this row
-        std::ifstream inFile("DATA/user.txt");
-        std::string line;
-        int lineCount = 1;
-        while (std::getline(inFile, line)) {
-            ++lineCount;
-        }
-        inFile.close();
-        newUser.ID = lineCount;
-
         std::ofstream outFile("Data/user.txt", std::ios::app);
-        outFile << newUser.ID << "," << newUser.username << "," << newUser.password << "," << newUser.role << "\n"; // store ID, username , password, role one by one
+        outFile << newUser.ID << std::setfill('0') << std::setw(3) << ID << ","
+            << newUser.username << "," << newUser.password << "," << newUser.role << "\n"; // store ID, username , password, role one by one
         outFile.close();//close the file to avoid error input into the file
         std::cout << "Registered successfully! Please log in now!\n";
     }
@@ -139,7 +149,7 @@ int login(User& currentUser) { //0 if success, 1 if cancel, 2 if fail
             std::cout << "[DEBUG] Comparing " << inputU << " with " << username << "\n";
 
             if (username == inputU && password == inputP) {
-                currentUser.ID = stoi(strID);
+                currentUser.ID = strID;
                 currentUser.username = inputU; //if entered username and password is both found from the text file and it is correct
                 currentUser.password = inputP;
                 currentUser.role = stoi(role);  // assign username and role into the user structure that create on main file
